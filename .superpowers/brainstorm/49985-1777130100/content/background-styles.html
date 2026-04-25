@@ -1,0 +1,55 @@
+<h2>Estilos de Background Premium</h2>
+<p class="subtitle">Escolha a atmosfera que melhor define a identidade do Núcleo NERDS</p>
+
+<div class="options">
+  <div class="option" data-choice="grid" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Active Grid System</h3>
+      <p>Uma grade geométrica sutil com pulsações nos nós. Transmite precisão, estrutura e arquitetura de software.</p>
+      <div class="mockup" style="margin-top:1rem; height:150px; background:#10131a; position:relative; overflow:hidden; border:1px solid #333;">
+        <div style="position:absolute; inset:0; background-image: radial-gradient(#00dbe9 1px, transparent 1px); background-size: 30px 30px; opacity: 0.2;"></div>
+        <div style="position:absolute; top:50%; left:50%; width:100px; height:100px; background: radial-gradient(circle, rgba(0,219,233,0.1) 0%, transparent 70%); transform:translate(-50%, -50%); animation: pulse 4s infinite;"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="matrix" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Code Stream (Matrix)</h3>
+      <p>Fluxos verticais de caracteres técnicos em baixa opacidade. Foco em desenvolvimento, reengenharia e "baixo nível".</p>
+      <div class="mockup" style="margin-top:1rem; height:150px; background:#10131a; position:relative; overflow:hidden; border:1px solid #333; font-family: monospace; color:#2ae500; font-size:10px; line-height:1;">
+        <div style="opacity:0.1; padding:5px;">
+          01011001 10101101<br>
+          REGEN_CORE_SYS_INIT<br>
+          0xFFFF >> BUF_01<br>
+          NERDS_NODE_ACTIVE<br>
+          01011001 10101101<br>
+          REGEN_CORE_SYS_INIT<br>
+        </div>
+        <div style="position:absolute; top:0; left:0; right:0; height:100%; background:linear-gradient(transparent, #10131a); pointer-events:none;"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="aura" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Cyber Aura Glow</h3>
+      <p>Nebulosas de luz Cyan e Green que se movem lentamente. Estética moderna, fluida e orgânica (Glassmorphism).</p>
+      <div class="mockup" style="margin-top:1rem; height:150px; background:#10131a; position:relative; overflow:hidden; border:1px solid #333;">
+        <div style="position:absolute; top:-20%; left:-20%; width:80%; height:80%; background:radial-gradient(circle, rgba(0,219,233,0.15) 0%, transparent 70%); filter:blur(40px);"></div>
+        <div style="position:absolute; bottom:-20%; right:-20%; width:80%; height:80%; background:radial-gradient(circle, rgba(42,229,0,0.1) 0%, transparent 70%); filter:blur(40px);"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  @keyframes pulse {
+    0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.3; }
+    50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.6; }
+    100% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.3; }
+  }
+</style>

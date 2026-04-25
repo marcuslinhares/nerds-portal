@@ -1,0 +1,63 @@
+<h2>Design Final: Background Neural Grid</h2>
+<p class="subtitle">Sistema de fundo premium para o Núcleo NERDS</p>
+
+<div class="section">
+  <h3>1. Arquitetura Visual</h3>
+  <div class="mockup" style="padding: 2rem; background: #10131a; border: 1px solid #333;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+      <div>
+        <h4 class="label">CORES_E_TOKENS</h4>
+        <ul style="font-size: 0.9rem; color: #ccc;">
+          <li><span style="color: var(--color-primary)">●</span> Base: #10131a</li>
+          <li><span style="color: #333">●</span> Linhas: rgba(255, 255, 255, 0.05)</li>
+          <li><span style="color: var(--color-primary)">●</span> Brilho: #00dbe9 (Cyan)</li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="label">COMPOSIÇÃO</h4>
+        <p style="font-size: 0.9rem;">Grade de 30px x 30px. Linhas ultra-finas (0.5px). Intersecções (nós) são pequenos círculos de 1px.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>2. Comportamento e Performance</h3>
+  <div class="pros-cons">
+    <div class="pros">
+      <h4>Interatividade</h4>
+      <ul>
+        <li><strong>Node Glow:</strong> Raio de 150px em volta do cursor ativa o brilho.</li>
+        <li><strong>Suavidade:</strong> Transições de opacidade de 300ms para evitar cintilação.</li>
+        <li><strong>Parallax:</strong> Leve movimento (2%) oposto ao scroll da página.</li>
+      </ul>
+    </div>
+    <div class="cons">
+      <h4>Performance (Safe)</h4>
+      <ul>
+        <li><strong>Canvas API:</strong> Renderização em <canvas> para zero impacto no DOM.</li>
+        <li><strong>Throttle:</strong> Eventos de mouse limitados a 60fps.</li>
+        <li><strong>Reduced Motion:</strong> Desativa animações se o usuário preferir.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>3. Exemplo de Integração</h3>
+  <pre style="background: #000; padding: 1rem; border-radius: 4px; color: #00dbe9; font-size: 0.8rem; overflow: auto;">
+// No BaseLayout.astro
+&lt;canvas id="neural-grid"&gt;&lt;/canvas&gt;
+
+// CSS
+#neural-grid {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.6;
+}
+  </pre>
+</div>
+
+<p class="subtitle" style="margin-top: 2rem; text-align: center;">Este design atende à sua expectativa de um efeito "Premium"?</p>
