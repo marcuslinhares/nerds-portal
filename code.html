@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>NERDS Portal - Mission Control</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&amp;family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@400;600;700;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error-container": "#93000a",
+                        "on-primary-fixed": "#002022",
+                        "surface": "#10131a",
+                        "surface-bright": "#363940",
+                        "on-primary": "#00363a",
+                        "on-tertiary": "#690006",
+                        "secondary-container": "#2ff801",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-container": "#0f6d00",
+                        "on-surface": "#e1e2eb",
+                        "tertiary-fixed-dim": "#ffb4ab",
+                        "secondary-fixed-dim": "#2ae500",
+                        "on-tertiary-fixed": "#410002",
+                        "on-tertiary-container": "#c10014",
+                        "on-surface-variant": "#b9cacb",
+                        "surface-container-high": "#272a31",
+                        "tertiary": "#fff3f2",
+                        "on-primary-container": "#006970",
+                        "on-secondary": "#053900",
+                        "on-secondary-fixed": "#022100",
+                        "surface-container": "#1d2026",
+                        "inverse-on-surface": "#2e3037",
+                        "surface-tint": "#00dbe9",
+                        "surface-container-lowest": "#0b0e14",
+                        "outline": "#849495",
+                        "secondary": "#d7ffc5",
+                        "background": "#10131a",
+                        "surface-variant": "#32353c",
+                        "surface-dim": "#10131a",
+                        "tertiary-container": "#ffcec8",
+                        "on-tertiary-fixed-variant": "#93000c",
+                        "surface-container-low": "#191c22",
+                        "primary-container": "#00f0ff",
+                        "on-background": "#e1e2eb",
+                        "secondary-fixed": "#79ff5b",
+                        "tertiary-fixed": "#ffdad6",
+                        "error": "#ffb4ab",
+                        "inverse-surface": "#e1e2eb",
+                        "primary-fixed": "#7df4ff",
+                        "surface-container-highest": "#32353c",
+                        "on-secondary-fixed-variant": "#095300",
+                        "on-error": "#690005",
+                        "primary": "#dbfcff",
+                        "primary-fixed-dim": "#00dbe9",
+                        "inverse-primary": "#006970",
+                        "outline-variant": "#3b494b",
+                        "on-primary-fixed-variant": "#004f54"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "stack-sm": "8px",
+                        "stack-lg": "32px",
+                        "base-unit": "8px",
+                        "container-margin": "40px",
+                        "grid-gutter": "24px",
+                        "stack-md": "16px"
+                    },
+                    "fontFamily": {
+                        "body-main": ["Inter"],
+                        "display-lg": ["Space Grotesk"],
+                        "badge-text": ["Fira Code"],
+                        "technical-label": ["Fira Code"],
+                        "headline-md": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "body-main": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "badge-text": ["11px", { "lineHeight": "1", "fontWeight": "700" }],
+                        "technical-label": ["13px", { "lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "headline-md": ["24px", { "lineHeight": "1.2", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            font-feature-settings: 'liga';
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+        .bg-grid-pattern {
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+        .glass-panel {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            background: linear-gradient(135deg, rgba(0, 219, 233, 0.05) 0%, rgba(16, 19, 26, 0.5) 100%);
+        }
+        .neon-glow:hover {
+            filter: drop-shadow(0 0 15px rgba(0, 240, 255, 0.6));
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-main text-body-main antialiased relative min-h-screen flex flex-col">
+<!-- Global Grid Background -->
+<div class="fixed inset-0 bg-grid-pattern pointer-events-none z-0"></div>
+<!-- TopNavBar JSON Injection -->
+<nav class="bg-zinc-950/80 backdrop-blur-xl border-b border-cyan-500/20 shadow-[0_0_20px_rgba(0,240,255,0.15)] flex justify-between items-center w-full px-6 py-3 sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-black text-cyan-400 font-mono italic">NERDS_PORTAL</span>
+<ul class="hidden md:flex items-center gap-6 font-['Space_Grotesk'] uppercase tracking-widest text-sm">
+<li><a class="text-cyan-400 border-b-2 border-cyan-400 pb-1 font-bold" href="#">Dashboard</a></li>
+<li><a class="text-zinc-500 hover:text-cyan-300 transition-colors hover:text-cyan-400 hover:drop-shadow-[0_0_8px_rgba(0,240,255,0.8)] active:scale-95 transition-transform duration-150" href="#">Missions</a></li>
+<li><a class="text-zinc-500 hover:text-cyan-300 transition-colors hover:text-cyan-400 hover:drop-shadow-[0_0_8px_rgba(0,240,255,0.8)] active:scale-95 transition-transform duration-150" href="#">Leaderboard</a></li>
+<li><a class="text-zinc-500 hover:text-cyan-300 transition-colors hover:text-cyan-400 hover:drop-shadow-[0_0_8px_rgba(0,240,255,0.8)] active:scale-95 transition-transform duration-150" href="#">Knowledge Base</a></li>
+</ul>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 font-['Space_Grotesk'] uppercase tracking-widest text-sm text-cyan-400">
+<span class="text-zinc-400">XP: 2,450</span>
+<span class="px-2 py-1 bg-cyan-950/50 rounded border border-cyan-500/30">Lvl 12</span>
+</div>
+<div class="flex items-center gap-3 text-cyan-400">
+<button class="hover:text-cyan-300 transition-colors hover:drop-shadow-[0_0_8px_rgba(0,240,255,0.8)] active:scale-95 duration-150"><span class="material-symbols-outlined">terminal</span></button>
+<button class="hover:text-cyan-300 transition-colors hover:drop-shadow-[0_0_8px_rgba(0,240,255,0.8)] active:scale-95 duration-150"><span class="material-symbols-outlined">account_circle</span></button>
+<img alt="Student Avatar" class="w-8 h-8 rounded-full border border-cyan-500/50" data-alt="close up portrait of a young professional with a neutral expression against a dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKVZ1ki27dybTAhXLQeINwANUI6a3Nzv-JPCry2J08GI9YpoArd3e13sKuJQ_vWrTOAJH3oXq9EUwFPJHwHqBf_GWC4EdPFWqhcxg1PPKPfUcJOivEC33a_XTzCZiJ-ssYrVil9yZZbLVCdefPWPEiFGxVNx2JfO1K7J1HuIeLP6SyuhQmQnY3zv7AvTouVQ3grBKPukznCcmrLKAL9MJsB-GYeKadzn5x57lXAmHQdwCFw0rzB33fd3JgoabPEYSpnoJVtdVzldA"/>
+</div>
+</div>
+</nav>
+<!-- Main Canvas -->
+<main class="flex-grow z-10 px-container-margin py-stack-lg flex flex-col gap-stack-lg max-w-7xl mx-auto w-full">
+<!-- Hero / Mission Control Header -->
+<header class="flex flex-col gap-stack-sm border-l-4 border-primary-container pl-4 relative">
+<div class="font-technical-label text-technical-label text-primary-fixed-dim uppercase tracking-widest flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary-fixed shadow-[0_0_8px_rgba(121,255,91,0.8)] animate-pulse"></span>
+                System Status: Secure &amp; Online
+            </div>
+<h1 class="font-display-lg text-display-lg text-inverse-surface">Mission Control</h1>
+<p class="text-on-surface-variant max-w-2xl font-body-main text-body-main">Access active intelligence, required tech stacks, and track your ongoing development vectors.</p>
+</header>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-grid-gutter">
+<!-- Active Missions (Large Span) -->
+<section class="col-span-1 md:col-span-8 flex flex-col gap-stack-md">
+<div class="flex justify-between items-end border-b border-outline-variant pb-2">
+<h2 class="font-headline-md text-headline-md text-inverse-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">rocket_launch</span>
+                        Active Missions
+                    </h2>
+<a class="font-technical-label text-technical-label text-primary hover:text-primary-container transition-colors" href="#">View All Archive -&gt;</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-md">
+<!-- Mission Card 1 -->
+<article class="glass-panel rounded-xl border border-outline/20 p-6 flex flex-col gap-4 relative overflow-hidden group hover:border-primary-container/50 transition-colors neon-glow">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-primary">data_object</span>
+</div>
+<div class="flex justify-between items-start z-10">
+<div class="font-technical-label text-technical-label text-outline bg-surface-container-high px-2 py-0.5 rounded">OP-VORTEX</div>
+<span class="font-badge-text text-badge-text text-secondary-fixed bg-secondary-fixed/10 border border-secondary-fixed/30 px-2 py-1 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">stars</span> +500 XP
+                            </span>
+</div>
+<div class="z-10">
+<h3 class="font-headline-md text-headline-md text-inverse-surface mb-1 group-hover:text-primary-container transition-colors">Distributed Ledger Analysis</h3>
+<p class="text-on-surface-variant text-sm">Construct a scalable audit tool for decentralized networks prioritizing transaction throughput.</p>
+</div>
+<div class="mt-auto z-10 pt-4 border-t border-outline-variant/50">
+<h4 class="font-technical-label text-technical-label text-on-surface mb-2">Required Stack:</h4>
+<div class="flex flex-wrap gap-2">
+<span class="font-badge-text text-badge-text bg-surface-container-high text-primary border border-outline-variant px-2 py-1 rounded-full">Rust</span>
+<span class="font-badge-text text-badge-text bg-surface-container-high text-primary border border-outline-variant px-2 py-1 rounded-full">Web3.js</span>
+<span class="font-badge-text text-badge-text bg-surface-container-high text-primary border border-outline-variant px-2 py-1 rounded-full">PostgreSQL</span>
+</div>
+</div>
+</article>
+<!-- Mission Card 2 -->
+<article class="glass-panel rounded-xl border border-outline/20 p-6 flex flex-col gap-4 relative overflow-hidden group hover:border-primary-container/50 transition-colors neon-glow">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-primary">shield_lock</span>
+</div>
+<div class="flex justify-between items-start z-10">
+<div class="font-technical-label text-technical-label text-outline bg-surface-container-high px-2 py-0.5 rounded">OP-AEGIS</div>
+<span class="font-badge-text text-badge-text text-secondary-fixed bg-secondary-fixed/10 border border-secondary-fixed/30 px-2 py-1 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">stars</span> +850 XP
+                            </span>
+</div>
+<div class="z-10">
+<h3 class="font-headline-md text-headline-md text-inverse-surface mb-1 group-hover:text-primary-container transition-colors">Vulnerability Assessment Engine</h3>
+<p class="text-on-surface-variant text-sm">Develop an automated CI/CD pipeline integrated vulnerability scanner for microservices.</p>
+</div>
+<div class="mt-auto z-10 pt-4 border-t border-outline-variant/50">
+<h4 class="font-technical-label text-technical-label text-on-surface mb-2">Required Stack:</h4>
+<div class="flex flex-wrap gap-2">
+<span class="font-badge-text text-badge-text bg-surface-container-high text-primary border border-outline-variant px-2 py-1 rounded-full">Python</span>
+<span class="font-badge-text text-badge-text bg-surface-container-high text-primary border border-outline-variant px-2 py-1 rounded-full">Docker</span>
+<span class="font-badge-text text-badge-text bg-surface-container-high text-primary border border-outline-variant px-2 py-1 rounded-full">GitLab CI</span>
+</div>
+</div>
+</article>
+</div>
+</section>
+<!-- Sidebar / Widgets -->
+<section class="col-span-1 md:col-span-4 flex flex-col gap-stack-md">
+<!-- Career Path Visualization -->
+<div class="glass-panel rounded-xl border border-outline/20 p-6 flex flex-col gap-4">
+<h2 class="font-headline-md text-[20px] font-semibold text-inverse-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">route</span>
+                        Vector Progression
+                    </h2>
+<div class="flex flex-col gap-0 relative pt-2">
+<div class="absolute left-[15px] top-4 bottom-4 w-px bg-outline-variant z-0"></div>
+<div class="flex items-center gap-4 z-10 py-2">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center shadow-[0_0_10px_rgba(47,248,1,0.4)]">
+<span class="material-symbols-outlined text-[16px] text-on-secondary-container" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div class="flex flex-col">
+<span class="font-technical-label text-technical-label text-secondary-container">Level 1: Initiate</span>
+<span class="text-[12px] text-on-surface-variant">Core fundamentals secured.</span>
+</div>
+</div>
+<div class="flex items-center gap-4 z-10 py-2">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center shadow-[0_0_15px_rgba(0,240,255,0.6)]">
+<span class="material-symbols-outlined text-[16px] text-on-primary-container" style="font-variation-settings: 'FILL' 1;">sync</span>
+</div>
+<div class="flex flex-col">
+<span class="font-technical-label text-technical-label text-primary-container">Level 2: Architect</span>
+<span class="text-[12px] text-on-surface-variant text-primary-fixed-dim">Current Operation</span>
+</div>
+</div>
+<div class="flex items-center gap-4 z-10 py-2 opacity-50">
+<div class="w-8 h-8 rounded-full bg-surface-container-high border border-outline-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px] text-outline">lock</span>
+</div>
+<div class="flex flex-col">
+<span class="font-technical-label text-technical-label text-outline">Level 3: Master</span>
+<span class="text-[12px] text-outline">Requires 5,000 XP</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Industry Partners -->
+<div class="glass-panel rounded-xl border border-outline/20 p-6 flex flex-col gap-4">
+<h2 class="font-headline-md text-[20px] font-semibold text-inverse-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">handshake</span>
+                        Network Uplinks
+                    </h2>
+<div class="grid grid-cols-2 gap-3">
+<div class="bg-surface-container h-16 rounded border border-outline-variant/50 flex items-center justify-center grayscale hover:grayscale-0 transition-all cursor-pointer">
+<span class="font-display-lg text-[16px] font-bold tracking-tighter">TECH<span class="text-primary-container">CORP</span></span>
+</div>
+<div class="bg-surface-container h-16 rounded border border-outline-variant/50 flex items-center justify-center grayscale hover:grayscale-0 transition-all cursor-pointer">
+<span class="font-body-main text-[14px] font-black italic">CYBER<br/>DYNE</span>
+</div>
+<div class="bg-surface-container h-16 rounded border border-outline-variant/50 flex items-center justify-center grayscale hover:grayscale-0 transition-all cursor-pointer">
+<span class="font-technical-label text-[14px]">[ SEC-NET ]</span>
+</div>
+<div class="bg-surface-container h-16 rounded border border-outline-variant/50 flex items-center justify-center grayscale hover:grayscale-0 transition-all cursor-pointer text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-3xl">add</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Footer JSON Injection -->
+<footer class="bg-zinc-950 border-t border-cyan-500/10 w-full px-8 py-12 flex flex-col md:flex-row justify-between items-center gap-4 z-10 relative">
+<div class="text-cyan-400 font-bold font-mono text-[10px] tracking-tight">
+            © 2024 NERDS_EXTENSION_GROUP // ROOT_ACCESS_ONLY
+        </div>
+<ul class="flex flex-wrap items-center justify-center gap-6 font-mono text-[10px] tracking-tight text-zinc-600">
+<li class="cursor-pointer hover:bg-cyan-500/5 transition-all"><a class="hover:text-cyan-500" href="#">System Status</a></li>
+<li class="cursor-pointer hover:bg-cyan-500/5 transition-all"><a class="hover:text-cyan-500" href="#">Documentation</a></li>
+<li class="cursor-pointer hover:bg-cyan-500/5 transition-all"><a class="hover:text-cyan-500" href="#">GitHub_Mirror</a></li>
+<li class="cursor-pointer hover:bg-cyan-500/5 transition-all"><a class="hover:text-cyan-500" href="#">LinkedIn_Network</a></li>
+<li class="cursor-pointer hover:bg-cyan-500/5 transition-all"><a class="hover:text-cyan-500" href="#">API_Reference</a></li>
+</ul>
+</footer>
+</body></html>
