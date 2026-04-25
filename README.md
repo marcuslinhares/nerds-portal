@@ -1,43 +1,20 @@
-# Astro Starter Kit: Minimal
+# Portal de Extensão Universitária
 
-```sh
-npm create astro@latest -- --template minimal
-```
+Site institucional desenvolvido com **Astro** e estética **Cyber-Academic Tech**.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## 🚀 Tecnologias
+- [Astro](https://astro.build/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Vanilla CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)
 
-## 🚀 Project Structure
+## 🛠️ Comandos
+- `npm install`: Instala dependências
+- `npm run dev`: Servidor de desenvolvimento em `localhost:4321`
+- `npm run build`: Gera os arquivos estáticos na pasta `dist/`
+- `npm run preview`: Visualiza o build de produção localmente
 
-Inside of your Astro project, you'll see the following folders and files:
+## 📂 Estrutura de Dados
+Os dados institucionais e catálogos estão centralizados em `src/data/`. Para atualizar o conteúdo do site, basta editar os arquivos `.ts` correspondentes.
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## 🎨 Design System
+Identidade baseada em **Modern Dark Mode** com acentos em **Electric Cyan** e **Matrix Green**. Utiliza as fontes *Space Grotesk* (Headlines) e *Inter* (Body).
