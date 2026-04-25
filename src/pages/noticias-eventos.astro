@@ -1,9 +1,26 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionTitle from "../components/SectionTitle.astro";
+import { noticias } from "../data/noticias";
 ---
-<BaseLayout title="Notícias/Eventos | Extensao Universitaria" description="Novidades da extensao">
+<BaseLayout title="Notícias/Eventos | Extensao Universitaria" description="Ultimas noticias e atualizacoes">
   <section>
-    <h1>Notícias e Eventos</h1>
-    <p class="glass" style="padding: 20px;">Feed de notícias em desenvolvimento.</p>
+    <SectionTitle title="Mural de Notícias" subtitle="Acompanhe as novidades da extensão" />
+    
+    <div class="grid" style="display: grid; gap: 2rem; margin-top: 2rem;">
+      {noticias.map((n) => (
+        <article class="card glass" style="border-left: 2px solid var(--color-primary);">
+          <span class="mono" style="font-size: 0.75rem; opacity: 0.6;">{n.data}</span>
+          <h3 style="margin: 0.5rem 0 1rem 0; font-size: 1.2rem;">{n.titulo}</h3>
+          <p style="font-size: 0.9rem; opacity: 0.8; line-height: 1.5;">{n.resumo}</p>
+          <a href="#" class="mono" style="display: inline-block; margin-top: 1.5rem; font-size: 0.8rem; color: var(--color-primary); text-decoration: none;">LER NOTÍCIA NA ÍNTEGRA ></a>
+        </article>
+      ))}
+    </div>
   </section>
 </BaseLayout>
+
+<style>
+  .card { padding: 1.5rem; }
+  .grid { grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); }
+</style>

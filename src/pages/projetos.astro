@@ -1,9 +1,43 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionTitle from "../components/SectionTitle.astro";
+import { projetos } from "../data/projetos";
 ---
-<BaseLayout title="Projetos | Extensao Universitaria" description="Projetos da extensao">
+<BaseLayout title="Projetos | Extensao Universitaria" description="Conheca nossos projetos de impacto social e tecnologico">
   <section>
-    <h1>Projetos</h1>
-    <p class="glass" style="padding: 20px;">Galeria de projetos em desenvolvimento.</p>
+    <SectionTitle title="Projetos" subtitle="Iniciativas ativas de extensao" />
+    
+    <div class="grid" style="display: grid; gap: 2rem; margin-top: 2rem;">
+      {projetos.map((p) => (
+        <article class="card glass" style="display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+              <span class="mono" style="font-size: 0.7rem; color: var(--color-secondary);">{p.area.toUpperCase()}</span>
+              <span class={`status-tag ${p.status.toLowerCase()}`}>{p.status}</span>
+            </div>
+            <h3 style="margin: 0 0 1rem 0;">{p.titulo}</h3>
+            <p style="font-size: 0.95rem; opacity: 0.8;">{p.resumo}</p>
+          </div>
+          <a href={`/projetos/${p.slug}`} class="mono btn-glow" style="margin-top: 2rem; text-decoration: none; color: var(--color-primary); font-size: 0.85rem;">
+            DETALHES DO PROJETO >
+          </a>
+        </article>
+      ))}
+    </div>
   </section>
 </BaseLayout>
+
+<style>
+  .card { padding: 2rem; }
+  .grid { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+  .status-tag {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    padding: 2px 10px;
+    border-radius: 99px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--color-outline);
+  }
+  .status-tag.ativo { border-color: var(--color-secondary); color: var(--color-secondary); }
+  .btn-glow:hover { text-shadow: 0 0 8px var(--color-primary); }
+</style>

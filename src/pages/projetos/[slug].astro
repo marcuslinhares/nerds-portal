@@ -1,0 +1,69 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SectionTitle from "../../components/SectionTitle.astro";
+import { projetos } from "../../data/projetos";
+
+export function getStaticPaths() {
+  return projetos.map((p) => ({
+    params: { slug: p.slug },
+    props: { p },
+  }));
+}
+
+const { p } = Astro.props;
+---
+
+<BaseLayout title={`${p.titulo} | Projetos`} description={p.resumo}>
+  <article>
+    <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 1rem;">
+      <a href="/projetos" class="mono" style="color: var(--color-secondary); text-decoration: none; font-size: 0.8rem;">
+        &lt; VOLTAR PARA LISTAGEM
+      </a>
+      <span class="mono" style="font-size: 0.8rem; opacity: 0.3;">/</span>
+      <span class="mono" style="font-size: 0.8rem; opacity: 0.5;">DETALHES DO PROJETO</span>
+    </div>
+
+    <SectionTitle title={p.titulo} subtitle={`Área: ${p.area} | Início em ${p.dataInicio}`} />
+
+    <div class="grid" style="display: grid; gap: 2rem; margin-top: 2rem;">
+      <div class="glass" style="padding: 2rem;">
+        <h3 class="mono" style="color: var(--color-primary);">RESUMO EXECUTIVO</h3>
+        <p style="line-height: 1.8; margin-top: 1rem;">{p.descricao}</p>
+      </div>
+
+      <aside class="glass" style="padding: 2rem; height: fit-content;">
+        <h3 class="mono" style="color: var(--color-primary);">STATUS DO SISTEMA</h3>
+        <div style="margin-top: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+            <span class="mono" style="font-size: 0.8rem;">DISPONIBILIDADE:</span>
+            <span class="mono" style="font-size: 0.8rem; color: var(--color-secondary);">ONLINE</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span class="mono" style="font-size: 0.8rem;">FASE ATUAL:</span>
+            <span class="mono" style="font-size: 0.8rem; color: var(--color-primary);">{p.status.toUpperCase()}</span>
+          </div>
+        </div>
+        <button class="cta-btn mono" style="width: 100%; margin-top: 2rem;">SOLICITAR PARTICIPAÇÃO</button>
+      </aside>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .grid { grid-template-columns: 2fr 1fr; }
+  @media (max-width: 768px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+  .cta-btn {
+    background: var(--color-primary);
+    color: var(--color-bg);
+    border: none;
+    padding: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+  }
+  .cta-btn:hover {
+    box-shadow: 0 0 15px var(--color-primary);
+  }
+</style>

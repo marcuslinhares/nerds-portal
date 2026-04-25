@@ -1,9 +1,55 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionTitle from "../components/SectionTitle.astro";
+import { cursos } from "../data/cursos";
 ---
-<BaseLayout title="Cursos | Extensao Universitaria" description="Cursos da extensao">
+<BaseLayout title="Cursos | Extensao Universitaria" description="Capacitacao e formacao para a comunidade">
   <section>
-    <h1>Cursos</h1>
-    <p class="glass" style="padding: 20px;">Catálogo de cursos em desenvolvimento.</p>
+    <SectionTitle title="Cursos" subtitle="Programas de formação e capacitação" />
+    
+    <div class="grid" style="display: grid; gap: 2rem; margin-top: 2rem;">
+      {cursos.map((c) => (
+        <article class="card glass">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+            <span class="mono" style="font-size: 0.7rem; color: var(--color-secondary);">CARGA: {c.cargaHoraria}</span>
+            <span class="status-indicator" data-status={c.status}></span>
+          </div>
+          <h3 style="margin: 0 0 1rem 0;">{c.titulo}</h3>
+          <p class="mono" style="font-size: 0.8rem; color: var(--color-primary); margin-bottom: 1.5rem;">{c.status.toUpperCase()}</p>
+          <a href={`/cursos/${c.slug}`} class="glass-btn">VER EMENTA</a>
+        </article>
+      ))}
+    </div>
   </section>
 </BaseLayout>
+
+<style>
+  .card { padding: 2rem; border-top: 2px solid var(--color-outline); }
+  .grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .status-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--color-outline);
+  }
+  .status-indicator[data-status="Inscrições Abertas"] {
+    background: var(--color-secondary);
+    box-shadow: 0 0 8px var(--color-secondary);
+  }
+  .glass-btn {
+    display: inline-block;
+    padding: 0.6rem 1.2rem;
+    background: rgba(0, 219, 233, 0.05);
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+    text-decoration: none;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    border-radius: var(--radius-sm);
+    transition: all 0.2s ease;
+  }
+  .glass-btn:hover {
+    background: var(--color-primary);
+    color: var(--color-bg);
+  }
+</style>
