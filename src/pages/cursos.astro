@@ -1,7 +1,9 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SectionTitle from "../components/SectionTitle.astro";
-import { cursos } from "../data/cursos";
+import { getCollection } from "astro:content";
+
+const cursos = await getCollection("cursos");
 ---
 <BaseLayout title="Cursos | NERDS" description="Capacitacao e formacao pelo núcleo de software">
   <section>
@@ -11,12 +13,12 @@ import { cursos } from "../data/cursos";
       {cursos.map((c) => (
         <article class="card glass">
           <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
-            <span class="mono" style="font-size: 0.7rem; color: var(--color-secondary);">CARGA: {c.cargaHoraria}</span>
-            <span class="status-indicator" data-status={c.status}></span>
+            <span class="mono" style="font-size: 0.7rem; color: var(--color-secondary);">CARGA: {c.data.cargaHoraria}</span>
+            <span class="status-indicator" data-status={c.data.status}></span>
           </div>
-          <h3 style="margin: 0 0 1rem 0;">{c.titulo}</h3>
-          <p class="mono" style="font-size: 0.8rem; color: var(--color-primary); margin-bottom: 1.5rem;">{c.status.toUpperCase()}</p>
-          <a href={`/cursos/${c.slug}`} class="glass-btn">VER EMENTA</a>
+          <h3 style="margin: 0 0 1rem 0;">{c.data.titulo}</h3>
+          <p class="mono" style="font-size: 0.8rem; color: var(--color-primary); margin-bottom: 1.5rem;">{c.data.status.toUpperCase()}</p>
+          <a href={`/cursos/${c.id}`} class="glass-btn">VER EMENTA</a>
         </article>
       ))}
     </div>

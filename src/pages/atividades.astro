@@ -1,7 +1,9 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SectionTitle from "../components/SectionTitle.astro";
-import { atividades } from "../data/atividades";
+import { getCollection } from "astro:content";
+
+const atividades = await getCollection("atividades");
 ---
 <BaseLayout title="Atividades | NERDS" description="Agenda de atividades e eventos do núcleo">
   <section>
@@ -11,16 +13,16 @@ import { atividades } from "../data/atividades";
       {atividades.map((a) => (
         <article class="glass" style="margin-bottom: 1rem; padding: 1.5rem; display: flex; align-items: center; gap: 2rem; flex-wrap: wrap;">
           <div style="flex-shrink: 0; text-align: center; min-width: 80px;">
-            <span class="mono" style="font-size: 1.2rem; display: block; color: var(--color-primary);">{a.data ? a.data.split('-')[2] : '--'}</span>
+            <span class="mono" style="font-size: 1.2rem; display: block; color: var(--color-primary);">{a.data.data ? a.data.data.split('-')[2] : '--'}</span>
             <span class="mono" style="font-size: 0.7rem; opacity: 0.7;">MAI/JUN</span>
           </div>
           <div style="flex-grow: 1;">
             <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 0.5rem;">
-              <span class="mono" style="font-size: 0.6rem; color: var(--color-secondary); border: 1px solid var(--color-secondary); padding: 2px 6px; border-radius: 4px;">{a.tipo.toUpperCase()}</span>
-              <span class="mono" style="font-size: 0.7rem; opacity: 0.6;">{a.horario}</span>
+              <span class="mono" style="font-size: 0.6rem; color: var(--color-secondary); border: 1px solid var(--color-secondary); padding: 2px 6px; border-radius: 4px;">{a.data.tipo.toUpperCase()}</span>
+              <span class="mono" style="font-size: 0.7rem; opacity: 0.6;">{a.data.horario}</span>
             </div>
-            <h3 style="margin: 0; font-size: 1.1rem;">{a.titulo}</h3>
-            <p style="margin: 0.5rem 0 0 0; font-size: 0.85rem; opacity: 0.8;">Local: {a.local}</p>
+            <h3 style="margin: 0; font-size: 1.1rem;">{a.data.titulo}</h3>
+            <p style="margin: 0.5rem 0 0 0; font-size: 0.85rem; opacity: 0.8;">Local: {a.data.local}</p>
           </div>
           <button class="mono" style="background: transparent; border: 1px solid var(--color-outline); color: var(--color-text); padding: 8px 16px; cursor: pointer; border-radius: var(--radius-sm);">LEMBRAR ME</button>
         </article>
