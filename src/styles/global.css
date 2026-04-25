@@ -145,3 +145,12 @@ ul {
   padding: 0;
   margin: 0;
 }
+
+/* Visibility Utilities */
+.mobile-only { display: none !important; }
+.desktop-only { display: flex !important; }
+
+@media (max-width: 900px) {
+  .desktop-only { display: none !important; }
+  .mobile-only { display: flex !important; }
+}

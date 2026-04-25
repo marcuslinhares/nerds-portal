@@ -181,8 +181,6 @@ const pathname = normalizePath(Astro.url.pathname);
   }
 
   /* Mobile Elements */
-  .mobile-only { display: none !important; }
-  .desktop-only { display: flex !important; }
 
   .menu-btn {
     background: transparent;
@@ -326,8 +324,6 @@ const pathname = normalizePath(Astro.url.pathname);
   }
 
   @media (max-width: 900px) {
-    .desktop-only { display: none !important; }
-    .mobile-only { display: flex !important; }
     .mobile-drawer { display: flex; }
   }
 </style>
