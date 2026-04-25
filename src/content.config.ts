@@ -2,7 +2,7 @@ import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
 const projetos = defineCollection({
-  loader: glob({ pattern: "*.json", base: "src/content/projetos" }),
+  loader: glob({ pattern: "**/*.json", base: "./src/content/projetos" }),
   schema: z.object({
     titulo: z.string(),
     resumo: z.string(),
@@ -14,7 +14,7 @@ const projetos = defineCollection({
 });
 
 const cursos = defineCollection({
-  loader: glob({ pattern: "*.json", base: "src/content/cursos" }),
+  loader: glob({ pattern: "**/*.json", base: "./src/content/cursos" }),
   schema: z.object({
     titulo: z.string(),
     cargaHoraria: z.string(),
@@ -24,7 +24,7 @@ const cursos = defineCollection({
 });
 
 const atividades = defineCollection({
-  loader: glob({ pattern: "*.json", base: "src/content/atividades" }),
+  loader: glob({ pattern: "**/*.json", base: "./src/content/atividades" }),
   schema: z.object({
     titulo: z.string(),
     data: z.string(),
