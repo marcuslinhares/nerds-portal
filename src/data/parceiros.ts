@@ -22,5 +22,6 @@ export const parceiros: Parceiro[] = [
     nome: "Prefeitura Municipal",
     tipo: "Governamental",
     descricao: "Articuladora de demandas sociais e logística regional.",
+    url: "https://example.com"
   }
 ];
