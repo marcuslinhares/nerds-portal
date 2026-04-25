@@ -7,11 +7,14 @@ const normalizePath = (path: string) =>
 const pathname = normalizePath(Astro.url.pathname);
 ---
 
-<header>
-  <div class="container">
-    <nav aria-label="Navegacao principal">
-      <a href="/">{site.name}</a>
-      <ul>
+<header class="glass">
+  <div class="container header-content">
+    <nav aria-label="Navegacao principal" class="main-nav">
+      <a href="/" class="logo mono">
+        <span class="pulse"></span>
+        {site.name.toUpperCase()}
+      </a>
+      <ul class="nav-links">
         {
           site.menu.map((item) => {
             const href = normalizePath(item.href);
@@ -21,11 +24,15 @@ const pathname = normalizePath(Astro.url.pathname);
             return (
               <li>
                 {isAvailable ? (
-                  <a href={item.href} aria-current={isCurrent ? "page" : undefined}>
+                  <a 
+                    href={item.href} 
+                    aria-current={isCurrent ? "page" : undefined}
+                    class={isCurrent ? "active" : ""}
+                  >
                     {item.label}
                   </a>
                 ) : (
-                  <span aria-disabled="true" title="Disponivel em breve">
+                  <span class="disabled" title="Disponível em breve">
                     {item.label}
                   </span>
                 )}
@@ -37,3 +44,103 @@ const pathname = normalizePath(Astro.url.pathname);
     </nav>
   </div>
 </header>
+
+<style>
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid rgba(0, 219, 233, 0.1);
+    margin-bottom: 2rem;
+  }
+
+  .header-content {
+    padding: 1rem 0;
+  }
+
+  .main-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: var(--color-primary);
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 0.1em;
+  }
+
+  .pulse {
+    width: 8px;
+    height: 8px;
+    background: var(--color-primary);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--color-primary);
+    animation: glow-pulse 2s infinite;
+  }
+
+  @keyframes glow-pulse {
+    0% { opacity: 0.4; }
+    50% { opacity: 1; }
+    100% { opacity: 0.4; }
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .nav-links a, .nav-links .disabled {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    text-decoration: none;
+    color: var(--color-text);
+    opacity: 0.7;
+    transition: all 0.2s ease;
+    padding: 0.5rem 0;
+    border-bottom: 2px solid transparent;
+  }
+
+  .nav-links a:hover {
+    opacity: 1;
+    color: var(--color-primary);
+  }
+
+  .nav-links a.active {
+    opacity: 1;
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
+    text-shadow: 0 0 10px rgba(0, 219, 233, 0.3);
+  }
+
+  .disabled {
+    cursor: not-allowed;
+    opacity: 0.3 !important;
+  }
+
+  @media (max-width: 900px) {
+    .main-nav {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .nav-links {
+      width: 100%;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+      gap: 1rem;
+    }
+    .nav-links a {
+      white-space: nowrap;
+    }
+  }
+</style>
