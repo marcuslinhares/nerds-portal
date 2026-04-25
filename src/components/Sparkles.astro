@@ -1,0 +1,144 @@
+---
+interface Props {
+  id?: string;
+  minSize?: number;
+  maxSize?: number;
+  particleCount?: number;
+  className?: string;
+  particleColor?: string;
+}
+
+const {
+  id = "sparkles-canvas",
+  minSize = 0.6,
+  maxSize = 1.4,
+  particleCount = 100,
+  className = "",
+  particleColor = "#00dbe9"
+} = Astro.props;
+---
+
+<div class={`sparkles-container ${className}`}>
+  <canvas 
+    id={id} 
+    data-min-size={minSize} 
+    data-max-size={maxSize} 
+    data-count={particleCount}
+    data-color={particleColor}
+  ></canvas>
+</div>
+
+<style>
+  .sparkles-container {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: -1;
+  }
+  canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+</style>
+
+<script>
+  class Sparkles {
+    canvas: HTMLCanvasElement;
+    ctx: CanvasRenderingContext2D;
+    particles: any[] = [];
+    minSize: number;
+    maxSize: number;
+    count: number;
+    color: string;
+    animationId: number | null = null;
+
+    constructor(el: HTMLCanvasElement) {
+      this.canvas = el;
+      this.ctx = el.getContext('2d')!;
+      this.minSize = parseFloat(el.dataset.minSize || "0.6");
+      this.maxSize = parseFloat(el.dataset.maxSize || "1.4");
+      this.count = parseInt(el.dataset.count || "100");
+      this.color = el.dataset.color || "#00dbe9";
+      
+      this.init();
+      this.animate();
+      window.addEventListener('resize', () => this.init());
+    }
+
+    init() {
+      const parent = this.canvas.parentElement;
+      if (!parent) return;
+      this.canvas.width = parent.offsetWidth;
+      this.canvas.height = parent.offsetHeight;
+      this.particles = [];
+      
+      for (let i = 0; i < this.count; i++) {
+        this.particles.push(this.createParticle());
+      }
+    }
+
+    createParticle() {
+      return {
+        x: Math.random() * this.canvas.width,
+        y: Math.random() * this.canvas.height,
+        size: Math.random() * (this.maxSize - this.minSize) + this.minSize,
+        speedX: (Math.random() - 0.5) * 0.3,
+        speedY: (Math.random() - 0.5) * 0.3,
+        opacity: Math.random(),
+        blinkSpeed: Math.random() * 0.01 + 0.005
+      };
+    }
+
+    draw() {
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+      this.particles.forEach(p => {
+        p.x += p.speedX;
+        p.y += p.speedY;
+        p.opacity += p.blinkSpeed;
+
+        if (p.opacity > 1 || p.opacity < 0) p.blinkSpeed *= -1;
+        if (p.x < 0) p.x = this.canvas.width;
+        if (p.x > this.canvas.width) p.x = 0;
+        if (p.y < 0) p.y = this.canvas.height;
+        if (p.y > this.canvas.height) p.y = 0;
+
+        this.ctx.fillStyle = this.color;
+        this.ctx.globalAlpha = Math.max(0, p.opacity);
+        this.ctx.beginPath();
+        this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        this.ctx.fill();
+      });
+      this.ctx.globalAlpha = 1;
+    }
+
+    animate() {
+      this.draw();
+      this.animationId = requestAnimationFrame(() => this.animate());
+    }
+
+    destroy() {
+      if (this.animationId) cancelAnimationFrame(this.animationId);
+    }
+  }
+
+  let activeSparkles: Sparkles[] = [];
+
+  function initAllSparkles() {
+    activeSparkles.forEach(s => s.destroy());
+    activeSparkles = [];
+    
+    const canvases = document.querySelectorAll('[id^="sparkles-canvas"]');
+    canvases.forEach(canvas => {
+      activeSparkles.push(new Sparkles(canvas as HTMLCanvasElement));
+    });
+  }
+
+  document.addEventListener('astro:page-load', initAllSparkles);
+  if (document.readyState === 'complete') {
+    initAllSparkles();
+  } else {
+    window.addEventListener('load', initAllSparkles);
+  }
+</script>

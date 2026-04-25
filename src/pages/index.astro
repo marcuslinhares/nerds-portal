@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SectionTitle from "../components/SectionTitle.astro";
+import Sparkles from "../components/Sparkles.astro";
 ---
 
 <BaseLayout
@@ -8,7 +9,8 @@ import SectionTitle from "../components/SectionTitle.astro";
   description="NERDS - Núcleo Especializado em Reengenharia e Desenvolvimento de Software."
 >
   <!-- Hero Section -->
-  <section class="hero">
+  <section class="hero" style="position: relative;">
+    <Sparkles particleCount={150} minSize={0.5} maxSize={2} />
     <h1>Núcleo <span class="glow">NERDS</span></h1>
     <p class="mono">> Núcleo Especializado em Reengenharia e Desenvolvimento de Software.</p>
   </section>
@@ -79,9 +81,15 @@ import SectionTitle from "../components/SectionTitle.astro";
   h1 {
     font-size: 3.5rem;
     margin: 0;
+    position: relative;
+    z-index: 1;
   }
   .glow {
     text-shadow: 0 0 15px var(--color-primary);
+  }
+  .hero p {
+    position: relative;
+    z-index: 1;
   }
   .grid {
     display: grid;
