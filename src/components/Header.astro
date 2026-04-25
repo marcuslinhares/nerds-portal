@@ -10,15 +10,12 @@ const pathname = normalizePath(Astro.url.pathname);
 
 <header class="glass">
   <div class="container header-content">
-    <div class="header-top">
+    <nav aria-label="Navegacao principal" class="main-nav">
       <a href="/" class="logo mono">
         <span class="pulse"></span>
         {site.name.toUpperCase()}
       </a>
-      <SystemStatus />
-    </div>
-    
-    <nav aria-label="Navegacao principal" class="main-nav">
+      
       <ul class="nav-links">
         {
           site.menu.map((item) => {
@@ -47,6 +44,9 @@ const pathname = normalizePath(Astro.url.pathname);
         }
       </ul>
     </nav>
+    
+    <!-- Widget Flutuante -->
+    <SystemStatus />
   </div>
 </header>
 
@@ -60,17 +60,14 @@ const pathname = normalizePath(Astro.url.pathname);
   }
 
   .header-content {
-    padding: 0.75rem 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+    padding: 1.25rem 0;
+    position: relative; /* Base para o SystemStatus flutuante */
   }
 
-  .header-top {
+  .main-nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
   }
 
   .logo {
@@ -82,6 +79,7 @@ const pathname = normalizePath(Astro.url.pathname);
     font-weight: 700;
     font-size: 1.1rem;
     letter-spacing: 0.1em;
+    flex-shrink: 0;
   }
 
   .pulse {
@@ -97,11 +95,6 @@ const pathname = normalizePath(Astro.url.pathname);
     0% { opacity: 0.4; }
     50% { opacity: 1; }
     100% { opacity: 0.4; }
-  }
-
-  .main-nav {
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    padding-top: 0.5rem;
   }
 
   .nav-links {
@@ -140,15 +133,9 @@ const pathname = normalizePath(Astro.url.pathname);
     opacity: 0.3 !important;
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 1024px) {
     .nav-links {
-      width: 100%;
-      overflow-x: auto;
-      padding-bottom: 0.5rem;
-      gap: 1rem;
-    }
-    .nav-links a {
-      white-space: nowrap;
+      display: none; /* Ou transformar em menu hamburguer no futuro */
     }
   }
 </style>
