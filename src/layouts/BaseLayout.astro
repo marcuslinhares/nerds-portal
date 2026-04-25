@@ -46,12 +46,14 @@ const {
     <ClientRouter />
   </head>
   <body>
-    <Header />
-    <main class="container">
-      <slot />
-    </main>
-    <Footer />
-    <BackToTop />
+    <div class="app-wrapper">
+      <Header />
+      <main class="container">
+        <slot />
+      </main>
+      <Footer />
+      <BackToTop />
+    </div>
     <script src="../scripts/text-scramble.ts"></script>
     <script src="../scripts/reveal.ts"></script>
   </body>
