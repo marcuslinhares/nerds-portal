@@ -1,9 +1,38 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionTitle from "../components/SectionTitle.astro";
+import { sobre } from "../data/sobre";
 ---
-<BaseLayout title="Sobre | Extensao Universitaria" description="Conheca a extensao universitaria">
+<BaseLayout title="Sobre | Extensao Universitaria" description="Conheca a missao e o historico da extensao">
   <section>
-    <h1>Sobre</h1>
-    <p class="glass" style="padding: 20px;">Conteúdo em desenvolvimento.</p>
+    <SectionTitle title="Sobre a Extensao" subtitle="Nossa identidade e proposito" />
+    
+    <div class="glass" style="padding: 2rem; margin-bottom: 2rem;">
+      <p class="mono">> {sobre.missao}</p>
+    </div>
+
+    <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+      <div class="card glass">
+        <h3>Visão</h3>
+        <p>{sobre.visao}</p>
+      </div>
+      <div class="card glass">
+        <h3>Objetivos Estratégicos</h3>
+        <ul>
+          {sobre.objetivos.map(obj => <li>- {obj}</li>)}
+        </ul>
+      </div>
+    </div>
+
+    <section style="margin-top: 3rem;">
+      <SectionTitle title="Histórico" />
+      <p>{sobre.historico}</p>
+    </section>
   </section>
 </BaseLayout>
+
+<style>
+  .card { padding: 1.5rem; }
+  h3 { color: var(--color-secondary); margin-top: 0; }
+  ul { font-family: var(--font-mono); font-size: 0.9rem; }
+</style>

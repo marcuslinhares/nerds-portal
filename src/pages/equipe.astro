@@ -1,9 +1,36 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionTitle from "../components/SectionTitle.astro";
+import { equipe } from "../data/equipe";
 ---
 <BaseLayout title="Equipe | Extensao Universitaria" description="Equipe da extensao">
   <section>
-    <h1>Equipe</h1>
-    <p class="glass" style="padding: 20px;">Membros e coordenação em desenvolvimento.</p>
+    <SectionTitle title="Nossa Equipe" subtitle="Especialistas conectando saberes" />
+    
+    <div class="grid-3" style="display: grid; gap: 2rem; margin-top: 2rem;">
+      {equipe.map((membro) => (
+        <article class="card glass">
+          <header>
+            <h3 class="mono" style="color: var(--color-primary); margin: 0;">{membro.nome}</h3>
+            <p style="color: var(--color-secondary); font-size: 0.8rem; margin-bottom: 1rem;">{membro.papel}</p>
+          </header>
+          <p>{membro.bio}</p>
+          {membro.email && (
+            <footer style="margin-top: 1rem; border-top: 1px solid var(--color-outline); padding-top: 0.5rem;">
+              <a href={`mailto:${membro.email}`} class="mono" style="font-size: 0.8rem; color: var(--color-text); opacity: 0.7;">
+                {membro.email}
+              </a>
+            </footer>
+          )}
+        </article>
+      ))}
+    </div>
   </section>
 </BaseLayout>
+
+<style>
+  .card { padding: 1.5rem; }
+  .grid-3 {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+</style>

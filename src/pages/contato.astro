@@ -1,9 +1,57 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionTitle from "../components/SectionTitle.astro";
+import { contato } from "../data/contato";
 ---
-<BaseLayout title="Contato | Extensao Universitaria" description="Entre em contato com a extensao">
+<BaseLayout title="Contato | Extensao Universitaria" description="Canais oficiais de comunicacao da extensao">
   <section>
-    <h1>Contato</h1>
-    <p class="glass" style="padding: 20px;">Canais de comunicação em desenvolvimento.</p>
+    <SectionTitle title="Contato" subtitle="Conecte-se com nossa central acadêmica" />
+    
+    <div class="grid" style="display: grid; gap: 3rem; margin-top: 2rem;">
+      <div class="glass" style="padding: 2rem;">
+        <h3 class="mono" style="color: var(--color-primary);">Canais Diretos</h3>
+        <ul style="margin-top: 1.5rem;">
+          <li style="margin-bottom: 1rem;">
+            <strong class="mono" style="color: var(--color-secondary);">EMAIL:</strong><br />
+            <a href={`mailto:${contato.email}`} style="color: var(--color-text); text-decoration: none; opacity: 0.9;">{contato.email}</a>
+          </li>
+          <li style="margin-bottom: 1rem;">
+            <strong class="mono" style="color: var(--color-secondary);">TELEFONE:</strong><br />
+            <span>{contato.telefone}</span>
+          </li>
+          <li style="margin-bottom: 1rem;">
+            <strong class="mono" style="color: var(--color-secondary);">ENDEREÇO:</strong><br />
+            <span style="font-size: 0.9rem;">{contato.endereco}</span>
+          </li>
+          <li>
+            <strong class="mono" style="color: var(--color-secondary);">HORÁRIO:</strong><br />
+            <span style="font-size: 0.9rem;">{contato.horario}</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="glass" style="padding: 2rem;">
+        <h3 class="mono" style="color: var(--color-primary);">Redes & Comunidades</h3>
+        <div style="display: grid; gap: 1rem; margin-top: 1.5rem;">
+          {contato.redes.map(rede => (
+            <a href={rede.url} target="_blank" rel="noopener noreferrer" class="card-link glass" style="padding: 1rem; text-decoration: none; display: flex; justify-content: space-between; align-items: center;">
+              <span class="mono" style="color: var(--color-secondary);">{rede.nome.toUpperCase()}</span>
+              <span style="font-size: 0.8rem; opacity: 0.7;">{rede.label}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
   </section>
 </BaseLayout>
+
+<style>
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+  .card-link:hover {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 10px rgba(0, 219, 233, 0.1);
+  }
+  ul { line-height: 1.8; }
+</style>

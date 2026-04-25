@@ -1,9 +1,38 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionTitle from "../components/SectionTitle.astro";
+import { parceiros } from "../data/parceiros";
 ---
-<BaseLayout title="Parceiros | Extensao Universitaria" description="Parceiros da extensao">
+<BaseLayout title="Parceiros | Extensao Universitaria" description="Parceiros e apoiadores institucionais">
   <section>
-    <h1>Parceiros</h1>
-    <p class="glass" style="padding: 20px;">Instituições parceiras em desenvolvimento.</p>
+    <SectionTitle title="Parceiros" subtitle="Fortalecendo nossa rede de impacto" />
+    
+    <div class="grid" style="display: grid; gap: 1.5rem; margin-top: 2rem;">
+      {parceiros.map((p) => (
+        <article class="card glass" style="display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+              <h3 style="margin: 0;">{p.nome}</h3>
+              <span class="mono" style="font-size: 0.7rem; background: var(--color-outline); padding: 2px 8px; border-radius: 99px;">
+                {p.tipo}
+              </span>
+            </div>
+            <p style="margin-top: 1rem; opacity: 0.8;">{p.descricao}</p>
+          </div>
+          {p.url && (
+            <a href={p.url} target="_blank" rel="noopener noreferrer" class="mono" style="color: var(--color-secondary); font-size: 0.9rem; text-decoration: none; margin-top: 1rem;">
+              VISITAR WEBSITE >
+            </a>
+          )}
+        </article>
+      ))}
+    </div>
   </section>
 </BaseLayout>
+
+<style>
+  .card { padding: 1.5rem; }
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  }
+</style>
