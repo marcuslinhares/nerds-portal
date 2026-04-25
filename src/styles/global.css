@@ -57,6 +57,18 @@ h1, h2, h3 {
   box-shadow: 0 0 20px rgba(0, 219, 233, 0.2);
 }
 
+#neural-grid {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  background-color: var(--color-bg);
+  opacity: 0.6;
+}
+
 /* Cyber Effects */
 body::after {
   content: "";
