@@ -1,0 +1,20 @@
+---
+import "../styles/global.css";
+
+const {
+  title = "Extensao Universitaria",
+  description = "Portal institucional da extensao",
+} = Astro.props;
+---
+
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
