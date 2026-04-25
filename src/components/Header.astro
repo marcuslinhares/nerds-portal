@@ -1,7 +1,10 @@
 ---
 import { site } from "../data/site";
 
-const pathname = Astro.url.pathname;
+const normalizePath = (path: string) =>
+  path !== "/" && path.endsWith("/") ? path.slice(0, -1) : path;
+
+const pathname = normalizePath(Astro.url.pathname);
 ---
 
 <header>
@@ -10,16 +13,25 @@ const pathname = Astro.url.pathname;
       <a href="/">{site.name}</a>
       <ul>
         {
-          site.menu.map((item) => (
-            <li>
-              <a
-                href={item.href}
-                aria-current={pathname === item.href ? "page" : undefined}
-              >
-                {item.label}
-              </a>
-            </li>
-          ))
+          site.menu.map((item) => {
+            const href = normalizePath(item.href);
+            const isAvailable = site.availableRoutes.includes(href);
+            const isCurrent = pathname === href;
+
+            return (
+              <li>
+                {isAvailable ? (
+                  <a href={item.href} aria-current={isCurrent ? "page" : undefined}>
+                    {item.label}
+                  </a>
+                ) : (
+                  <span aria-disabled="true" title="Disponivel em breve">
+                    {item.label}
+                  </span>
+                )}
+              </li>
+            );
+          })
         }
       </ul>
     </nav>
