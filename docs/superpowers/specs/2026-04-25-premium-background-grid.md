@@ -1,6 +1,6 @@
 # Spec: Neural Grid Background (Premium UI)
 
-**Status:** APROVADO
+**Status:** DEPRECIADO (Removido a pedido do usuário em favor de fundo limpo + Sparkles)
 **Data:** 2026-04-25
 **Contexto:** Upgrade visual do portal NERDS para incluir uma camada de background interativa e técnica.
 
