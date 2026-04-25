@@ -10,14 +10,15 @@ const pathname = normalizePath(Astro.url.pathname);
 
 <header class="glass">
   <div class="container header-content">
-    <nav aria-label="Navegacao principal" class="main-nav">
+    <div class="header-top">
       <a href="/" class="logo mono">
         <span class="pulse"></span>
         {site.name.toUpperCase()}
       </a>
-      
       <SystemStatus />
-
+    </div>
+    
+    <nav aria-label="Navegacao principal" class="main-nav">
       <ul class="nav-links">
         {
           site.menu.map((item) => {
@@ -59,15 +60,17 @@ const pathname = normalizePath(Astro.url.pathname);
   }
 
   .header-content {
-    padding: 1rem 0;
+    padding: 0.75rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
   }
 
-  .main-nav {
+  .header-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
+    width: 100%;
   }
 
   .logo {
@@ -94,6 +97,11 @@ const pathname = normalizePath(Astro.url.pathname);
     0% { opacity: 0.4; }
     50% { opacity: 1; }
     100% { opacity: 0.4; }
+  }
+
+  .main-nav {
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 0.5rem;
   }
 
   .nav-links {
@@ -133,10 +141,6 @@ const pathname = normalizePath(Astro.url.pathname);
   }
 
   @media (max-width: 900px) {
-    .main-nav {
-      flex-direction: column;
-      align-items: flex-start;
-    }
     .nav-links {
       width: 100%;
       overflow-x: auto;
