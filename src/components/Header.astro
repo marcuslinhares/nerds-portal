@@ -1,0 +1,27 @@
+---
+import { site } from "../data/site";
+
+const pathname = Astro.url.pathname;
+---
+
+<header>
+  <div class="container">
+    <nav aria-label="Navegacao principal">
+      <a href="/">{site.name}</a>
+      <ul>
+        {
+          site.menu.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                aria-current={pathname === item.href ? "page" : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>

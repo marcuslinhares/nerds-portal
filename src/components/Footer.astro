@@ -1,0 +1,11 @@
+---
+import { site } from "../data/site";
+---
+
+<footer>
+  <div class="container">
+    <p>{site.name}</p>
+    <p>{site.description}</p>
+    <a href={`mailto:${site.email}`}>{site.email}</a>
+  </div>
+</footer>
