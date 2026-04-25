@@ -2,7 +2,17 @@ export const site = {
   name: "Extensao Universitaria",
   description: "Portal institucional de projetos, atividades e cursos",
   email: "extensao@universidade.edu.br",
-  availableRoutes: ["/"],
+  availableRoutes: [
+    "/",
+    "/sobre",
+    "/projetos",
+    "/atividades",
+    "/cursos",
+    "/equipe",
+    "/parceiros",
+    "/noticias-eventos",
+    "/contato",
+  ],
   menu: [
     { label: "Inicio", href: "/" },
     { label: "Sobre", href: "/sobre" },
