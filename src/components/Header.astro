@@ -62,9 +62,13 @@ const pathname = normalizePath(Astro.url.pathname);
   .header-content {
     padding: 1.25rem 0;
     position: relative; /* Base para o SystemStatus flutuante */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 
   .main-nav {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
