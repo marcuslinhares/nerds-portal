@@ -3,40 +3,48 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import SectionTitle from "../components/SectionTitle.astro";
 import { contato } from "../data/contato";
 ---
-<BaseLayout title="Contato | Extensao Universitaria" description="Canais oficiais de comunicacao da extensao">
+<BaseLayout title="Contato | NERDS" description="Canais oficiais de comunicacao do núcleo NERDS">
   <section>
     <SectionTitle title="Contato" subtitle="Conecte-se com nossa central acadêmica" />
     
-    <div class="grid" style="display: grid; gap: 3rem; margin-top: 2rem;">
-      <div class="glass" style="padding: 2rem;">
-        <h3 class="mono" style="color: var(--color-primary);">Canais Diretos</h3>
-        <ul style="margin-top: 1.5rem;">
-          <li style="margin-bottom: 1rem;">
-            <strong class="mono" style="color: var(--color-secondary);">EMAIL:</strong><br />
-            <a href={`mailto:${contato.email}`} style="color: var(--color-text); text-decoration: none; opacity: 0.9;">{contato.email}</a>
-          </li>
-          <li style="margin-bottom: 1rem;">
-            <strong class="mono" style="color: var(--color-secondary);">TELEFONE:</strong><br />
-            <span>{contato.telefone}</span>
-          </li>
-          <li style="margin-bottom: 1rem;">
-            <strong class="mono" style="color: var(--color-secondary);">ENDEREÇO:</strong><br />
-            <span style="font-size: 0.9rem;">{contato.endereco}</span>
+    <div class="grid">
+      <div class="glass info-card">
+        <h3 class="mono section-heading">Canais Diretos</h3>
+        <ul class="contact-list">
+          <li>
+            <strong class="mono label">EMAIL:</strong><br />
+            <a href={`mailto:${contato.email}`} class="contact-link">{contato.email}</a>
           </li>
           <li>
-            <strong class="mono" style="color: var(--color-secondary);">HORÁRIO:</strong><br />
-            <span style="font-size: 0.9rem;">{contato.horario}</span>
+            <strong class="mono label">TELEFONE:</strong><br />
+            <span class="value">{contato.telefone}</span>
+          </li>
+          <li>
+            <strong class="mono label">ENDEREÇO:</strong><br />
+            <span class="value small">{contato.endereco}</span>
+          </li>
+          <li>
+            <strong class="mono label">HORÁRIO:</strong><br />
+            <span class="value small">{contato.horario}</span>
           </li>
         </ul>
       </div>
 
-      <div class="glass" style="padding: 2rem;">
-        <h3 class="mono" style="color: var(--color-primary);">Redes & Comunidades</h3>
-        <div style="display: grid; gap: 1rem; margin-top: 1.5rem;">
+      <div class="glass info-card">
+        <h3 class="mono section-heading">Redes & Comunidades</h3>
+        <div class="social-links">
           {contato.redes.map(rede => (
-            <a href={rede.url} target="_blank" rel="noopener noreferrer" class="card-link glass" style="padding: 1rem; text-decoration: none; display: flex; justify-content: space-between; align-items: center;">
-              <span class="mono" style="color: var(--color-secondary);">{rede.nome.toUpperCase()}</span>
-              <span style="font-size: 0.8rem; opacity: 0.7;">{rede.label}</span>
+            <a 
+              href={rede.url} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="glass interactive social-item"
+            >
+              <div class="social-info">
+                <span class="mono social-name">{rede.nome.toUpperCase()}</span>
+                <span class="social-label">{rede.label}</span>
+              </div>
+              <span class="mono external-icon">↗</span>
             </a>
           ))}
         </div>
@@ -47,11 +55,103 @@ import { contato } from "../data/contato";
 
 <style>
   .grid {
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    display: grid;
+    gap: 3rem;
+    margin-top: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   }
-  .card-link:hover {
-    border-color: var(--color-primary);
-    box-shadow: 0 0 10px rgba(0, 219, 233, 0.1);
+
+  .info-card {
+    padding: 2.5rem;
   }
-  ul { line-height: 1.8; }
+
+  .section-heading {
+    color: var(--color-primary);
+    margin: 0 0 2rem 0;
+    font-size: 1.2rem;
+  }
+
+  /* Contact List Styles */
+  .contact-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .contact-list li {
+    margin-bottom: 1.5rem;
+  }
+
+  .label {
+    color: var(--color-secondary);
+    font-size: 0.8rem;
+    opacity: 0.8;
+  }
+
+  .value {
+    color: var(--color-text);
+    opacity: 0.9;
+  }
+
+  .value.small {
+    font-size: 0.9rem;
+  }
+
+  .contact-link {
+    color: var(--color-text);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .contact-link:hover {
+    color: var(--color-primary);
+    text-shadow: 0 0 8px rgba(0, 219, 233, 0.4);
+  }
+
+  /* Social Links Styles */
+  .social-links {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .social-item {
+    padding: 1.25rem;
+    text-decoration: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-color: rgba(255, 255, 255, 0.05);
+  }
+
+  .social-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .social-name {
+    color: var(--color-secondary);
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .social-label {
+    color: var(--color-text);
+    font-size: 0.8rem;
+    opacity: 0.5;
+  }
+
+  .external-icon {
+    color: var(--color-primary);
+    opacity: 0.3;
+    transition: opacity 0.2s ease;
+  }
+
+  .social-item:hover .external-icon {
+    opacity: 1;
+  }
+
+  .social-item:hover .social-label {
+    opacity: 0.8;
+  }
 </style>

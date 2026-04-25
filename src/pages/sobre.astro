@@ -3,36 +3,124 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import SectionTitle from "../components/SectionTitle.astro";
 import { sobre } from "../data/sobre";
 ---
-<BaseLayout title="Sobre | Extensao Universitaria" description="Conheca a missao e o historico da extensao">
+<BaseLayout title="Sobre | NERDS" description="Conheça a missão e a história do NERDS">
   <section>
-    <SectionTitle title="Sobre a Extensao" subtitle="Nossa identidade e proposito" />
+    <SectionTitle title="Sobre o NERDS" subtitle="Núcleo Especializado em Reengenharia e Desenvolvimento de Software" />
     
-    <div class="glass" style="padding: 2rem; margin-bottom: 2rem;">
-      <p class="mono">> {sobre.missao}</p>
+    <div class="glass hero-intro">
+      <p class="mono-intro"><span class="cursor">█</span> {sobre.missao}</p>
     </div>
 
-    <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+    <div class="info-grid">
       <div class="card glass">
-        <h3>Visão</h3>
-        <p>{sobre.visao}</p>
+        <h3 class="mono-label">VISÃO_ESTRATÉGICA</h3>
+        <p class="vision-text">{sobre.visao}</p>
       </div>
+      
       <div class="card glass">
-        <h3>Objetivos Estratégicos</h3>
-        <ul>
-          {sobre.objetivos.map(obj => <li>- {obj}</li>)}
+        <h3 class="mono-label">OBJETIVOS_CHAVE</h3>
+        <ul class="objectives-list">
+          {sobre.objetivos.map(obj => (
+            <li>
+              <span class="mono indicator">>></span>
+              <p>{obj}</p>
+            </li>
+          ))}
         </ul>
       </div>
     </div>
 
-    <section style="margin-top: 3rem;">
+    <section class="history-section">
       <SectionTitle title="Histórico" />
-      <p>{sobre.historico}</p>
+      <div class="glass history-content">
+        <p>{sobre.historico}</p>
+      </div>
     </section>
   </section>
 </BaseLayout>
 
 <style>
-  .card { padding: 1.5rem; }
-  h3 { color: var(--color-secondary); margin-top: 0; }
-  ul { font-family: var(--font-mono); font-size: 0.9rem; }
+  .hero-intro {
+    padding: 2.5rem;
+    margin-bottom: 3rem;
+    border-left: 4px solid var(--color-primary);
+  }
+
+  .mono-intro {
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--color-text);
+    margin: 0;
+  }
+
+  .cursor {
+    color: var(--color-primary);
+    animation: blink 1s infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  .info-grid {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  }
+
+  .card { 
+    padding: 2rem;
+  }
+
+  .mono-label {
+    color: var(--color-secondary);
+    font-size: 0.85rem;
+    margin: 0 0 1.5rem 0;
+    letter-spacing: 0.1em;
+  }
+
+  .vision-text {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    opacity: 0.9;
+  }
+
+  /* Objectives List Styling */
+  .objectives-list {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .objectives-list li {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .indicator {
+    color: var(--color-primary);
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+    opacity: 0.7;
+  }
+
+  .objectives-list p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    opacity: 0.85;
+  }
+
+  .history-section {
+    margin-top: 4rem;
+  }
+
+  .history-content {
+    padding: 2rem;
+    margin-top: 1.5rem;
+    line-height: 1.8;
+    opacity: 0.9;
+  }
 </style>

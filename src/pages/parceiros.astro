@@ -3,24 +3,22 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import SectionTitle from "../components/SectionTitle.astro";
 import { parceiros } from "../data/parceiros";
 ---
-<BaseLayout title="Parceiros | Extensao Universitaria" description="Parceiros e apoiadores institucionais">
+<BaseLayout title="Parceiros | NERDS" description="Parceiros e apoiadores institucionais do núcleo">
   <section>
     <SectionTitle title="Parceiros" subtitle="Fortalecendo nossa rede de impacto" />
     
-    <div class="grid" style="display: grid; gap: 1.5rem; margin-top: 2rem;">
+    <div class="grid">
       {parceiros.map((p) => (
-        <article class="card glass" style="display: flex; flex-direction: column; justify-content: space-between;">
-          <div>
-            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-              <h3 style="margin: 0;">{p.nome}</h3>
-              <span class="mono" style="font-size: 0.7rem; background: var(--color-outline); padding: 2px 8px; border-radius: 99px;">
-                {p.tipo}
-              </span>
-            </div>
-            <p style="margin-top: 1rem; opacity: 0.8;">{p.descricao}</p>
+        <article class="card glass interactive">
+          <div class="card-content">
+            <header class="partner-header">
+              <h3 class="partner-name">{p.nome}</h3>
+              <span class="mono partner-tag">{p.tipo}</span>
+            </header>
+            <p class="partner-description">{p.descricao}</p>
           </div>
           {p.url && (
-            <a href={p.url} target="_blank" rel="noopener noreferrer" class="mono" style="color: var(--color-secondary); font-size: 0.9rem; text-decoration: none; margin-top: 1rem;">
+            <a href={p.url} target="_blank" rel="noopener noreferrer" class="mono visit-link">
               VISITAR WEBSITE >
             </a>
           )}
@@ -31,8 +29,61 @@ import { parceiros } from "../data/parceiros";
 </BaseLayout>
 
 <style>
-  .card { padding: 1.5rem; }
   .grid {
+    display: grid;
+    gap: 1.5rem;
+    margin-top: 2rem;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  }
+
+  .card { 
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+  }
+
+  .partner-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .partner-name {
+    margin: 0;
+    font-size: 1.2rem;
+    color: var(--color-primary);
+  }
+
+  .partner-tag {
+    font-size: 0.65rem;
+    background: var(--color-outline);
+    padding: 4px 10px;
+    border-radius: 99px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    opacity: 0.8;
+  }
+
+  .partner-description {
+    margin: 0;
+    opacity: 0.8;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .visit-link {
+    color: var(--color-secondary);
+    font-size: 0.85rem;
+    text-decoration: none;
+    margin-top: 2rem;
+    transition: text-shadow 0.2s ease;
+  }
+
+  .visit-link:hover {
+    text-shadow: 0 0 10px var(--color-secondary);
   }
 </style>

@@ -1,6 +1,6 @@
 export const site = {
-  name: "Extensao Universitaria",
-  description: "Portal institucional de projetos, atividades e cursos",
+  name: "NERDS",
+  description: "Núcleo Especializado em Reengenharia e Desenvolvimento de Software",
   email: "extensao@universidade.edu.br",
   availableRoutes: [
     "/",

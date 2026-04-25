@@ -17,42 +17,63 @@ import SectionTitle from "../components/SectionTitle.astro";
   <section>
     <SectionTitle title="Destaques" subtitle="Iniciativas em evidência no portal" />
     <div class="grid">
-      <article class="card glass">
-        <h3>Projetos</h3>
+      <a href="/projetos" class="card glass interactive">
+        <h3 class="mono">PROJETOS_</h3>
         <p>Ações contínuas de impacto social.</p>
-      </article>
-      <article class="card glass">
-        <h3>Cursos</h3>
+        <span class="arrow mono">> EXPLORAR</span>
+      </a>
+      <a href="/cursos" class="card glass interactive">
+        <h3 class="mono">CURSOS_</h3>
         <p>Capacitação e formação para a comunidade.</p>
-      </article>
-      <article class="card glass">
-        <h3>Notícias</h3>
+        <span class="arrow mono">> EXPLORAR</span>
+      </a>
+      <a href="/noticias-eventos" class="card glass interactive">
+        <h3 class="mono">NOTICIAS_</h3>
         <p>Últimos eventos e atualizações.</p>
-      </article>
+        <span class="arrow mono">> EXPLORAR</span>
+      </a>
     </div>
   </section>
 
   <!-- Participation Section -->
-  <section class="glass" style="margin-top: 4rem; padding: 2rem;">
+  <section class="glass participation-card">
     <SectionTitle title="Como Participar" />
     <p>
-      Fique atento aos editais abertos e inscreva-se nas nossas atividades. A extensão é o espaço
-      de troca entre o saber acadêmico e a prática social.
+      Fique atento aos editais abertos e inscreva-se nas nossas atividades. O NERDS é o espaço
+      de troca entre a reengenharia de software e as demandas da comunidade.
     </p>
+    <div style="margin-top: 2rem;">
+      <a href="/noticias-eventos" class="cta-btn mono">VER_EDITAIS_ABERTOS</a>
+    </div>
   </section>
 
-  <!-- Partners Section -->
+  <!-- Impact Metrics Section -->
   <section style="margin-top: 4rem;">
-    <SectionTitle title="Parceiros" subtitle="Instituições que apoiam nossa missão" />
-    <div class="partners-placeholder">
-      <p class="mono">[ Conexão com parceiros institucionais via API/Data ]</p>
+    <SectionTitle title="Impacto em Dados" subtitle="Métricas de nossa atuação acadêmica" />
+    <div class="metrics-grid">
+      <div class="metric-item glass">
+        <span class="metric-value mono">15+</span>
+        <span class="metric-label mono">PROJETOS_ATIVOS</span>
+      </div>
+      <div class="metric-item glass">
+        <span class="metric-value mono">1.2k</span>
+        <span class="metric-label mono">ALUNOS_IMPACTADOS</span>
+      </div>
+      <div class="metric-item glass">
+        <span class="metric-value mono">45</span>
+        <span class="metric-label mono">PARCEIROS_REDE</span>
+      </div>
+      <div class="metric-item glass">
+        <span class="metric-value mono">100%</span>
+        <span class="metric-label mono">OPEN_ACCESS</span>
+      </div>
     </div>
   </section>
 </BaseLayout>
 
 <style>
   .hero {
-    padding: 4rem 0;
+    padding: 6rem 0;
     text-align: center;
   }
   h1 {
@@ -70,16 +91,72 @@ import SectionTitle from "../components/SectionTitle.astro";
   }
   .card {
     padding: 1.5rem;
-    transition: transform 0.2s ease;
+    text-decoration: none;
+    color: var(--color-text);
   }
-  .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0 20px rgba(0, 219, 233, 0.2);
+  .arrow {
+    display: block;
+    margin-top: 1.5rem;
+    font-size: 0.8rem;
+    color: var(--color-primary);
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
   }
-  .partners-placeholder {
+  .card:hover .arrow {
+    opacity: 1;
+  }
+
+  .participation-card {
+    margin-top: 4rem; 
+    padding: 2.5rem; 
+    border-left: 4px solid var(--color-secondary);
+  }
+
+  .cta-btn {
+    display: inline-block;
+    padding: 1rem 2rem;
+    border: 1px solid var(--color-secondary);
+    color: var(--color-secondary);
+    text-decoration: none;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    transition: all 0.3s ease;
+  }
+  .cta-btn:hover {
+    background: var(--color-secondary);
+    color: var(--color-bg);
+    box-shadow: 0 0 15px var(--color-secondary);
+  }
+
+  /* Metrics Styling */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .metric-item {
     padding: 2rem;
-    border: 1px dashed var(--color-outline);
     text-align: center;
-    border-radius: var(--radius-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s ease;
+  }
+  .metric-item:hover {
+    border-bottom-color: var(--color-primary);
+  }
+  .metric-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    text-shadow: 0 0 10px rgba(0, 219, 233, 0.3);
+  }
+  .metric-label {
+    font-size: 0.7rem;
+    color: var(--color-secondary);
+    opacity: 0.8;
+    letter-spacing: 0.05em;
   }
 </style>

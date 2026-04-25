@@ -1,11 +1,12 @@
 export const sobre = {
-  missao: "Promover o impacto social e a inovação tecnológica por meio da integração entre a excelência acadêmica e as demandas da comunidade.",
-  visao: "Ser o principal hub de conexão entre o saber universitário e o desenvolvimento regional sustentável.",
+  missao: "Promover o impacto social e a inovação tecnológica através da reengenharia e desenvolvimento de sistemas robustos.",
+  visao: "Ser o principal polo de excelência técnica e inovação em engenharia de software na região.",
   objetivos: [
-    "Difundir o conhecimento científico em linguagens acessíveis.",
-    "Promover a capacitação contínua de profissionais e cidadãos.",
-    "Fomentar projetos de impacto real na sociedade.",
-    "Integrar estudantes em cenários práticos de resolução de problemas."
+    "Aplicar reengenharia em softwares obsoletos.",
+    "Desenvolver soluções de software de alto impacto.",
+    "Promover a capacitação tecnológica da comunidade.",
+    "Integrar estudantes em cenários reais de engenharia."
   ],
-  historico: "Desde sua fundação, a Extensão Universitária tem sido o braço de conexão da academia com o mundo real, evoluindo de atividades assistencialistas para programas estruturados de inovação e desenvolvimento social."
+  historico: "O NERDS surgiu da necessidade de unir o rigor da engenharia de software com as demandas práticas da sociedade, transformando desafios complexos em soluções digitais."
 };
+
