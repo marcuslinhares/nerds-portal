@@ -1,0 +1,92 @@
+---
+---
+<button id="back-to-top" class="back-to-top glass" aria-label="Voltar ao topo">
+  <span class="arrow">↑</span>
+  <span class="mono label">TOP_</span>
+</button>
+
+<style>
+  .back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    z-index: 90;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border-color: rgba(0, 219, 233, 0.3);
+  }
+
+  .back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .back-to-top:hover {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 15px rgba(0, 219, 233, 0.3);
+    transform: translateY(-5px);
+  }
+
+  .arrow {
+    font-size: 1.2rem;
+    color: var(--color-primary);
+    line-height: 1;
+  }
+
+  .label {
+    font-size: 0.5rem;
+    color: var(--color-primary);
+    margin-top: 2px;
+    opacity: 0.8;
+  }
+
+  @media (max-width: 768px) {
+    .back-to-top {
+      bottom: 1.5rem;
+      right: 1.5rem;
+      width: 45px;
+      height: 45px;
+    }
+  }
+</style>
+
+<script>
+  function initBackToTop() {
+    const btn = document.getElementById('back-to-top');
+    
+    if (!btn) return;
+
+    const handleScroll = () => {
+      if (window.scrollY > 400) {
+        btn.classList.add('visible');
+      } else {
+        btn.classList.remove('visible');
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    
+    btn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  }
+
+  // Compatibilidade com View Transitions
+  document.addEventListener('astro:page-load', initBackToTop);
+  if (document.readyState === 'complete') {
+    initBackToTop();
+  }
+</script>
