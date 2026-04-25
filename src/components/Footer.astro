@@ -6,7 +6,10 @@ import { site } from "../data/site";
   <div class="container footer-content">
     <div class="footer-grid">
       <div class="footer-info">
-        <h3 class="mono">{site.name.toUpperCase()}</h3>
+        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+          <img src="/favicon.png" alt="NERDS Logo" style="width: 32px; height: 32px; filter: drop-shadow(0 0 10px rgba(0, 219, 233, 0.3));" />
+          <h3 class="mono" style="margin: 0;">{site.name.toUpperCase()}</h3>
+        </div>
         <p>{site.description}</p>
       </div>
       
