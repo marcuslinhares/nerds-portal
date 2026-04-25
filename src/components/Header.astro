@@ -16,7 +16,8 @@ const pathname = normalizePath(Astro.url.pathname);
         {site.name.toUpperCase()}
       </a>
       
-      <ul class="nav-links">
+      <!-- Desktop Nav -->
+      <ul class="nav-links desktop-only">
         {
           site.menu.map((item) => {
             const href = normalizePath(item.href);
@@ -43,11 +44,52 @@ const pathname = normalizePath(Astro.url.pathname);
           })
         }
       </ul>
+
+      <!-- Mobile Toggle -->
+      <button id="menu-toggle" class="menu-btn mobile-only mono" aria-label="Abrir menu">
+        <span class="menu-icon"></span>
+        MENU_
+      </button>
     </nav>
     
-    <!-- Widget Flutuante -->
     <SystemStatus />
   </div>
+
+  <!-- Mobile Drawer -->
+  <div id="mobile-drawer" class="mobile-drawer mobile-only">
+    <div class="drawer-header">
+       <span class="mono" style="color: var(--color-primary); font-size: 0.8rem;">NAV_GATEWAY_V1.0</span>
+       <button id="menu-close" class="close-btn mono">X_CLOSE</button>
+    </div>
+    <ul class="drawer-links">
+      {
+        site.menu.map((item) => {
+          const href = normalizePath(item.href);
+          const isAvailable = site.availableRoutes.includes(href);
+          const isCurrent = pathname === href;
+
+          return (
+            <li>
+              {isAvailable ? (
+                <a 
+                  href={item.href} 
+                  class={`drawer-link mono ${isCurrent ? "active" : ""}`}
+                >
+                  <span class="arrow">></span> {item.label.toUpperCase()}
+                </a>
+              ) : (
+                <span class="disabled mono">> {item.label.toUpperCase()}</span>
+              )}
+            </li>
+          );
+        })
+      }
+    </ul>
+    <div class="drawer-footer">
+       <p class="mono" style="font-size: 0.6rem; opacity: 0.5;">SECURE_CONNECTION: ACTIVE</p>
+    </div>
+  </div>
+  <div id="drawer-overlay" class="drawer-overlay mobile-only"></div>
 </header>
 
 <style>
@@ -61,7 +103,7 @@ const pathname = normalizePath(Astro.url.pathname);
 
   .header-content {
     padding: 1.25rem 0;
-    position: relative; /* Base para o SystemStatus flutuante */
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -84,6 +126,7 @@ const pathname = normalizePath(Astro.url.pathname);
     font-size: 1.1rem;
     letter-spacing: 0.1em;
     flex-shrink: 0;
+    z-index: 102;
   }
 
   .pulse {
@@ -137,9 +180,182 @@ const pathname = normalizePath(Astro.url.pathname);
     opacity: 0.3 !important;
   }
 
+  /* Mobile Elements */
+  .mobile-only { display: none; }
+
+  .menu-btn {
+    background: transparent;
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+    padding: 4px 12px;
+    font-size: 0.7rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+  }
+
+  .menu-btn:hover {
+    background: rgba(0, 219, 233, 0.1);
+    box-shadow: 0 0 10px rgba(0, 219, 233, 0.2);
+  }
+
+  .menu-icon {
+    width: 12px;
+    height: 1px;
+    background: var(--color-primary);
+    position: relative;
+  }
+  .menu-icon::before, .menu-icon::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background: var(--color-primary);
+    left: 0;
+  }
+  .menu-icon::before { top: -4px; }
+  .menu-icon::after { top: 4px; }
+
+  /* Drawer Styles */
+  .mobile-drawer {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 80%;
+    max-width: 300px;
+    height: 100vh;
+    background: rgba(16, 19, 26, 0.95);
+    backdrop-filter: blur(20px);
+    z-index: 1000;
+    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 2rem;
+    border-left: 1px solid var(--color-primary);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mobile-drawer.open {
+    right: 0;
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+  }
+
+  .drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3rem;
+  }
+
+  .close-btn {
+    background: transparent;
+    border: none;
+    color: var(--color-text);
+    opacity: 0.6;
+    cursor: pointer;
+    font-size: 0.7rem;
+  }
+
+  .drawer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .drawer-link {
+    text-decoration: none;
+    color: var(--color-text);
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+  }
+
+  .drawer-link .arrow {
+    color: var(--color-primary);
+    opacity: 0.4;
+    transition: transform 0.3s ease;
+  }
+
+  .drawer-link:hover .arrow {
+    transform: translateX(5px);
+    opacity: 1;
+  }
+
+  .drawer-link.active {
+    color: var(--color-primary);
+    text-shadow: 0 0 10px var(--color-primary);
+  }
+
+  .drawer-footer {
+    margin-top: auto;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .drawer-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+  }
+
+  .drawer-overlay.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
   @media (max-width: 1024px) {
-    .nav-links {
-      display: none; /* Ou transformar em menu hamburguer no futuro */
-    }
+    .desktop-only { display: none; }
+    .mobile-only { display: flex; }
+    .drawer-overlay.open { display: block; }
+    .mobile-drawer { display: flex; }
   }
 </style>
+
+<script>
+  function initMenu() {
+    const toggle = document.getElementById('menu-toggle');
+    const close = document.getElementById('menu-close');
+    const drawer = document.getElementById('mobile-drawer');
+    const overlay = document.getElementById('drawer-overlay');
+    const links = document.querySelectorAll('.drawer-link');
+
+    function toggleMenu(open: boolean) {
+      if (open) {
+        drawer?.classList.add('open');
+        overlay?.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      } else {
+        drawer?.classList.remove('open');
+        overlay?.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    }
+
+    toggle?.addEventListener('click', () => toggleMenu(true));
+    close?.addEventListener('click', () => toggleMenu(false));
+    overlay?.addEventListener('click', () => toggleMenu(false));
+
+    // Fecha ao clicar em um link (importante para ClientRouter)
+    links.forEach(link => {
+      link.addEventListener('click', () => toggleMenu(false));
+    });
+  }
+
+  document.addEventListener('astro:page-load', initMenu);
+  if (document.readyState === 'complete') {
+    initMenu();
+  } else {
+    window.addEventListener('load', initMenu);
+  }
+</script>
