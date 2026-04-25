@@ -20,14 +20,19 @@
 
 * { box-sizing: border-box; }
 
-html, body { 
+html {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+body { 
   margin: 0; 
   padding: 0;
   background: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-body);
   line-height: 1.6;
-  overflow-x: hidden;
+  min-height: 100vh;
 }
 
 h1, h2, h3 { 
