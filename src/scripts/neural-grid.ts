@@ -5,6 +5,7 @@ class NeuralGrid {
   mouse = { x: -1000, y: -1000 };
   spacing = 40; // Espaçamento levemente maior para melhor performance
   radius = 200; // Raio de influência maior
+  animationId: number | null = null;
 
   constructor(el: HTMLCanvasElement) {
     this.canvas = el;
@@ -84,15 +85,26 @@ class NeuralGrid {
 
   animate() {
     this.draw();
-    requestAnimationFrame(() => this.animate());
+    this.animationId = requestAnimationFrame(() => this.animate());
+  }
+
+  destroy() {
+    if (this.animationId) {
+      cancelAnimationFrame(this.animationId);
+    }
   }
 }
 
 // Inicialização compatível com Astro View Transitions
+let currentGrid: NeuralGrid | null = null;
+
 function initGrid() {
   const canvas = document.getElementById('neural-grid') as HTMLCanvasElement;
   if (canvas) {
-    new NeuralGrid(canvas);
+    if (currentGrid) {
+      currentGrid.destroy();
+    }
+    currentGrid = new NeuralGrid(canvas);
   }
 }
 

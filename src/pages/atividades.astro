@@ -11,7 +11,7 @@ import { atividades } from "../data/atividades";
       {atividades.map((a) => (
         <article class="glass" style="margin-bottom: 1rem; padding: 1.5rem; display: flex; align-items: center; gap: 2rem; flex-wrap: wrap;">
           <div style="flex-shrink: 0; text-align: center; min-width: 80px;">
-            <span class="mono" style="font-size: 1.2rem; display: block; color: var(--color-primary);">{a.data.split('-')[2]}</span>
+            <span class="mono" style="font-size: 1.2rem; display: block; color: var(--color-primary);">{a.data ? a.data.split('-')[2] : '--'}</span>
             <span class="mono" style="font-size: 0.7rem; opacity: 0.7;">MAI/JUN</span>
           </div>
           <div style="flex-grow: 1;">
