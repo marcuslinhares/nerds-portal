@@ -1,17 +1,17 @@
-// src/scripts/neural-grid.ts
 class NeuralGrid {
   canvas: HTMLCanvasElement;
   ctx: CanvasRenderingContext2D;
   points: { x: number; y: number }[] = [];
   mouse = { x: -1000, y: -1000 };
-  spacing = 30;
-  radius = 150;
+  spacing = 40; // Espaçamento levemente maior para melhor performance
+  radius = 200; // Raio de influência maior
 
   constructor(el: HTMLCanvasElement) {
     this.canvas = el;
     this.ctx = el.getContext('2d')!;
     this.init();
     this.animate();
+    
     window.addEventListener('resize', () => this.init());
     window.addEventListener('mousemove', (e) => {
       this.mouse.x = e.clientX;
@@ -28,15 +28,21 @@ class NeuralGrid {
         this.points.push({ x, y });
       }
     }
+    console.log(`[NeuralGrid] Initialized with ${this.points.length} points.`);
   }
 
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     
-    // Desenhar linhas da grade (estáticas/leves)
-    this.ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+    // Fundo sólido dentro do canvas para garantir que ele seja a base
+    this.ctx.fillStyle = '#10131a';
+    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    
+    // Desenhar linhas da grade
+    this.ctx.strokeStyle = 'rgba(0, 219, 233, 0.12)'; // Cyan bem sutil
     this.ctx.lineWidth = 0.5;
     this.ctx.beginPath();
+    
     for (let x = 0; x < this.canvas.width + this.spacing; x += this.spacing) {
       this.ctx.moveTo(x, 0);
       this.ctx.lineTo(x, this.canvas.height);
@@ -55,17 +61,22 @@ class NeuralGrid {
 
       if (dist < this.radius) {
         const opacity = 1 - dist / this.radius;
-        this.ctx.shadowBlur = 8 * opacity;
-        this.ctx.shadowColor = '#00dbe9';
-        this.ctx.fillStyle = `rgba(0, 219, 233, ${opacity * 0.8})`;
+        
+        // Brilho do nó
+        this.ctx.fillStyle = `rgba(0, 219, 233, ${opacity})`;
         this.ctx.beginPath();
-        this.ctx.arc(p.x, p.y, 1.2, 0, Math.PI * 2);
+        this.ctx.arc(p.x, p.y, 1.5, 0, Math.PI * 2);
+        this.ctx.fill();
+        
+        // Efeito de aura
+        this.ctx.fillStyle = `rgba(0, 219, 233, ${opacity * 0.15})`;
+        this.ctx.beginPath();
+        this.ctx.arc(p.x, p.y, 4, 0, Math.PI * 2);
         this.ctx.fill();
       } else {
-        this.ctx.shadowBlur = 0;
-        this.ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
+        this.ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
         this.ctx.beginPath();
-        this.ctx.arc(p.x, p.y, 0.6, 0, Math.PI * 2);
+        this.ctx.arc(p.x, p.y, 0.8, 0, Math.PI * 2);
         this.ctx.fill();
       }
     });
@@ -77,8 +88,18 @@ class NeuralGrid {
   }
 }
 
-// Inicialização segura para Astro/SSR
-if (typeof window !== 'undefined') {
+// Inicialização compatível com Astro View Transitions
+function initGrid() {
   const canvas = document.getElementById('neural-grid') as HTMLCanvasElement;
-  if (canvas) new NeuralGrid(canvas);
+  if (canvas) {
+    new NeuralGrid(canvas);
+  }
+}
+
+document.addEventListener('astro:page-load', initGrid);
+// Fallback para carregamento inicial sem transição
+if (document.readyState === 'complete') {
+  initGrid();
+} else {
+  window.addEventListener('load', initGrid);
 }
