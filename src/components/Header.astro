@@ -181,13 +181,14 @@ const pathname = normalizePath(Astro.url.pathname);
   }
 
   /* Mobile Elements */
-  .mobile-only { display: none; }
+  .mobile-only { display: none !important; }
+  .desktop-only { display: flex !important; }
 
   .menu-btn {
     background: transparent;
     border: 1px solid var(--color-primary);
     color: var(--color-primary);
-    padding: 4px 12px;
+    padding: 6px 12px;
     font-size: 0.7rem;
     cursor: pointer;
     display: flex;
@@ -227,35 +228,45 @@ const pathname = normalizePath(Astro.url.pathname);
     width: 80%;
     max-width: 300px;
     height: 100vh;
-    background: rgba(16, 19, 26, 0.95);
-    backdrop-filter: blur(20px);
+    background: rgba(16, 19, 26, 0.98);
+    backdrop-filter: blur(25px);
     z-index: 1000;
     transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    padding: 2rem;
+    padding: 2.5rem;
     border-left: 1px solid var(--color-primary);
     display: flex;
     flex-direction: column;
+    visibility: hidden; /* Garantir que comece invisível */
   }
 
   .mobile-drawer.open {
     right: 0;
-    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+    visibility: visible;
+    box-shadow: -10px 0 50px rgba(0, 0, 0, 0.8);
   }
 
   .drawer-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 3rem;
+    margin-bottom: 4rem;
   }
 
   .close-btn {
-    background: transparent;
-    border: none;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     color: var(--color-text);
-    opacity: 0.6;
+    padding: 4px 10px;
+    border-radius: 4px;
     cursor: pointer;
-    font-size: 0.7rem;
+    font-size: 0.65rem;
+    transition: all 0.2s ease;
+  }
+
+  .close-btn:hover {
+    background: rgba(255, 0, 0, 0.1);
+    border-color: #ff3e3e;
+    color: #ff3e3e;
   }
 
   .drawer-links {
@@ -264,33 +275,33 @@ const pathname = normalizePath(Astro.url.pathname);
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 2rem;
   }
 
   .drawer-link {
     text-decoration: none;
-    color: var(--color-text);
+    color: var(--color-text) !important; /* Forçar cor do texto */
     font-size: 1.1rem;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     transition: all 0.3s ease;
   }
 
   .drawer-link .arrow {
     color: var(--color-primary);
     opacity: 0.4;
-    transition: transform 0.3s ease;
+    font-weight: bold;
   }
 
-  .drawer-link:hover .arrow {
-    transform: translateX(5px);
-    opacity: 1;
+  .drawer-link:hover {
+    color: var(--color-primary) !important;
+    transform: translateX(8px);
   }
 
   .drawer-link.active {
-    color: var(--color-primary);
-    text-shadow: 0 0 10px var(--color-primary);
+    color: var(--color-primary) !important;
+    text-shadow: 0 0 15px var(--color-primary);
   }
 
   .drawer-footer {
@@ -302,7 +313,7 @@ const pathname = normalizePath(Astro.url.pathname);
   .drawer-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.8);
     z-index: 999;
     opacity: 0;
     visibility: hidden;
@@ -315,9 +326,8 @@ const pathname = normalizePath(Astro.url.pathname);
   }
 
   @media (max-width: 1024px) {
-    .desktop-only { display: none; }
-    .mobile-only { display: flex; }
-    .drawer-overlay.open { display: block; }
+    .desktop-only { display: none !important; }
+    .mobile-only { display: flex !important; }
     .mobile-drawer { display: flex; }
   }
 </style>
