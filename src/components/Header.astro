@@ -56,7 +56,7 @@ const pathname = normalizePath(Astro.url.pathname);
   </div>
 
   <!-- Mobile Drawer -->
-  <div id="mobile-drawer" class="mobile-drawer mobile-only">
+  <div id="mobile-drawer" class="mobile-drawer">
     <div class="drawer-header">
        <span class="mono" style="color: var(--color-primary); font-size: 0.8rem;">NAV_GATEWAY_V1.0</span>
        <button id="menu-close" class="close-btn mono">X_CLOSE</button>
@@ -89,7 +89,7 @@ const pathname = normalizePath(Astro.url.pathname);
        <p class="mono" style="font-size: 0.6rem; opacity: 0.5;">SECURE_CONNECTION: ACTIVE</p>
     </div>
   </div>
-  <div id="drawer-overlay" class="drawer-overlay mobile-only"></div>
+  <div id="drawer-overlay" class="drawer-overlay"></div>
 </header>
 
 <style>
@@ -180,20 +180,29 @@ const pathname = normalizePath(Astro.url.pathname);
     opacity: 0.3 !important;
   }
 
-  /* Mobile Elements */
-
+  /* Desktop vs Mobile Visibility (Scoped) */
   .menu-btn {
+    display: none;
     background: transparent;
     border: 1px solid var(--color-primary);
     color: var(--color-primary);
     padding: 6px 12px;
     font-size: 0.7rem;
     cursor: pointer;
-    display: flex;
     align-items: center;
     gap: 8px;
     border-radius: 4px;
     transition: all 0.3s ease;
+  }
+
+  .desktop-nav {
+    display: flex;
+  }
+
+  @media (max-width: 900px) {
+    .desktop-nav { display: none; }
+    .menu-btn { display: flex; }
+    .mobile-drawer { display: flex; }
   }
 
   .menu-btn:hover {
@@ -322,10 +331,6 @@ const pathname = normalizePath(Astro.url.pathname);
     opacity: 1;
     visibility: visible;
   }
-
-  @media (max-width: 900px) {
-    .mobile-drawer { display: flex; }
-  }
 </style>
 
 <script>
@@ -364,4 +369,8 @@ const pathname = normalizePath(Astro.url.pathname);
   } else {
     window.addEventListener('load', initMenu);
   }
+</script>
+}
+</script>
+
 </script>
