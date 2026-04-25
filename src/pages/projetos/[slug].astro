@@ -1,19 +1,22 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import SectionTitle from "../../components/SectionTitle.astro";
-import { projetos } from "../../data/projetos";
+import { getCollection, getEntry } from "astro:content";
 
-export function getStaticPaths() {
+export async function getStaticPaths() {
+  const projetos = await getCollection("projetos");
   return projetos.map((p) => ({
-    params: { slug: p.slug },
-    props: { p },
+    params: { slug: p.id },
   }));
 }
 
-const { p } = Astro.props;
+const { slug } = Astro.params;
+const p = await getEntry("projetos", slug);
+
+if (!p) return Astro.redirect("/404");
 ---
 
-<BaseLayout title={`${p.titulo} | Projetos`} description={p.resumo}>
+<BaseLayout title={`${p.data.titulo} | Projetos`} description={p.data.resumo}>
   <article>
     <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 1rem;">
       <a href="/projetos" class="mono" style="color: var(--color-secondary); text-decoration: none; font-size: 0.8rem;">
@@ -23,12 +26,12 @@ const { p } = Astro.props;
       <span class="mono" style="font-size: 0.8rem; opacity: 0.5;">DETALHES DO PROJETO</span>
     </div>
 
-    <SectionTitle title={p.titulo} subtitle={`Área: ${p.area} | Início em ${p.dataInicio}`} />
+    <SectionTitle title={p.data.titulo} subtitle={`Área: ${p.data.area} | Início em ${p.data.dataInicio}`} />
 
     <div class="grid" style="display: grid; gap: 2rem; margin-top: 2rem;">
       <div class="glass" style="padding: 2rem;">
         <h3 class="mono" style="color: var(--color-primary);">RESUMO EXECUTIVO</h3>
-        <p style="line-height: 1.8; margin-top: 1rem;">{p.descricao}</p>
+        <p style="line-height: 1.8; margin-top: 1rem;">{p.data.descricao}</p>
       </div>
 
       <aside class="glass" style="padding: 2rem; height: fit-content;">
@@ -40,7 +43,7 @@ const { p } = Astro.props;
           </div>
           <div style="display: flex; justify-content: space-between;">
             <span class="mono" style="font-size: 0.8rem;">FASE ATUAL:</span>
-            <span class="mono" style="font-size: 0.8rem; color: var(--color-primary);">{p.status.toUpperCase()}</span>
+            <span class="mono" style="font-size: 0.8rem; color: var(--color-primary);">{p.data.status.toUpperCase()}</span>
           </div>
         </div>
         <button class="cta-btn mono" style="width: 100%; margin-top: 2rem;">SOLICITAR PARTICIPAÇÃO</button>

@@ -1,7 +1,9 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SectionTitle from "../components/SectionTitle.astro";
-import { projetos } from "../data/projetos";
+import { getCollection } from "astro:content";
+
+const projetos = await getCollection("projetos");
 ---
 <BaseLayout title="Projetos | NERDS" description="Conheca nossos projetos de reengenharia e desenvolvimento">
   <section>
@@ -12,13 +14,13 @@ import { projetos } from "../data/projetos";
         <article class="card glass" style="display: flex; flex-direction: column; justify-content: space-between;">
           <div>
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-              <span class="mono" style="font-size: 0.7rem; color: var(--color-secondary);">{p.area.toUpperCase()}</span>
-              <span class={`status-tag ${p.status.toLowerCase()}`}>{p.status}</span>
+              <span class="mono" style="font-size: 0.7rem; color: var(--color-secondary);">{p.data.area.toUpperCase()}</span>
+              <span class={`status-tag ${p.data.status.toLowerCase()}`}>{p.data.status}</span>
             </div>
-            <h3 style="margin: 0 0 1rem 0;">{p.titulo}</h3>
-            <p style="font-size: 0.95rem; opacity: 0.8;">{p.resumo}</p>
+            <h3 style="margin: 0 0 1rem 0;">{p.data.titulo}</h3>
+            <p style="font-size: 0.95rem; opacity: 0.8;">{p.data.resumo}</p>
           </div>
-          <a href={`/projetos/${p.slug}`} class="mono btn-glow" style="margin-top: 2rem; text-decoration: none; color: var(--color-primary); font-size: 0.85rem;">
+          <a href={`/projetos/${p.id}`} class="mono btn-glow" style="margin-top: 2rem; text-decoration: none; color: var(--color-primary); font-size: 0.85rem;">
             DETALHES DO PROJETO >
           </a>
         </article>

@@ -1,0 +1,67 @@
+---
+---
+<div class="system-status mono">
+  <div class="status-item">
+    <span class="label">SYS_LOAD:</span>
+    <span class="value" id="sys-load">24%</span>
+  </div>
+  <div class="status-item">
+    <span class="label">UPTIME:</span>
+    <span class="value" id="uptime">99.9%</span>
+  </div>
+  <div class="status-indicator">
+    <span class="pulse"></span>
+    OPERATIONAL
+  </div>
+</div>
+
+<style>
+  .system-status {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 0.65rem;
+    color: var(--color-text);
+    opacity: 0.6;
+    align-items: center;
+  }
+  .label { color: var(--color-primary); margin-right: 4px; }
+  .status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--color-secondary);
+    border: 1px solid rgba(42, 229, 0, 0.2);
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+  .pulse {
+    width: 6px;
+    height: 6px;
+    background: var(--color-secondary);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--color-secondary);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.5; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  @media (max-width: 900px) {
+    .system-status { display: none; }
+  }
+</style>
+
+<script>
+  function updateMetrics() {
+    const loadEl = document.getElementById('sys-load');
+    if (loadEl) {
+      const load = Math.floor(Math.random() * (35 - 15) + 15);
+      loadEl.textContent = `${load}%`;
+    }
+  }
+  
+  // Atualiza métricas a cada 5 segundos
+  setInterval(updateMetrics, 5000);
+</script>

@@ -1,0 +1,6 @@
+{
+  "titulo": "Introdução ao Python para Análise de Dados",
+  "cargaHoraria": "32h",
+  "status": "Em Breve",
+  "ementa": ["Sintaxe Python", "Pandas & Numpy", "Visualização de Dados"]
+}

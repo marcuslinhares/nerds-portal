@@ -1,0 +1,6 @@
+{
+  "titulo": "Desenvolvimento Web com Astro e React",
+  "cargaHoraria": "40h",
+  "status": "Inscrições Abertas",
+  "ementa": ["Fundamentos de Web", "Astro SSG", "Componentes React", "Deploy e Performance"]
+}
