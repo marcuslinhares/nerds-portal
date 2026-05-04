@@ -1,7 +1,10 @@
 export const site = {
+  url: 'https://extensao.universidade.edu.br',
+  title: 'NERDS - Núcleo de Software',
   name: "NERDS",
   description: "Núcleo Especializado em Reengenharia e Desenvolvimento de Software",
   email: "extensao@universidade.edu.br",
+  buildDate: new Date().toISOString(),
   availableRoutes: [
     "/",
     "/sobre",
