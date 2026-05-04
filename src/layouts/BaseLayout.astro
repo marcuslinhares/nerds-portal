@@ -4,6 +4,7 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import BackToTop from "../components/BackToTop.astro";
 import { ClientRouter } from "astro:transitions";
+import { site } from "../data/site";
 
 const {
   title = "NERDS - Núcleo de Software",
@@ -36,6 +37,22 @@ const {
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={new URL('/og-image.png', Astro.url.href)} />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "NERDS - Núcleo de Software",
+      "url": Astro.site?.toString() ?? site.url,
+      "description": site.description,
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Russas",
+        "addressRegion": "CE",
+        "addressCountry": "BR"
+      },
+      "sameAs": []
+    })} />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
