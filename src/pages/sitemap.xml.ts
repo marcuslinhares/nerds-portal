@@ -32,6 +32,12 @@ export const GET: APIRoute = async () => {
       priority: '0.6',
       changefreq: 'monthly',
     })),
+    ...atividades.map(a => ({
+      url: `${base}/atividades/${a.id}`,
+      lastmod: site.buildDate,
+      priority: '0.6',
+      changefreq: 'monthly',
+    })),
   ];
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
