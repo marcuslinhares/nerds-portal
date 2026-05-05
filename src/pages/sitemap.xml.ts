@@ -20,7 +20,7 @@ export const GET: APIRoute = async () => {
   }
 
   const staticPages = ['/', '/sobre', '/projetos', '/cursos', '/atividades', '/noticias-eventos', '/parceiros', '/equipe', '/contato'];
-  const buildDate = (site as any).buildDate ?? new Date().toISOString().split('T')[0];
+  const buildDate = site.buildDate ?? new Date().toISOString().split('T')[0];
 
   const urls = [
     ...staticPages.map(path => ({

@@ -17,7 +17,7 @@ export const GET: APIRoute = async () => {
     });
   }
 
-  const buildDate = (site as any).buildDate ?? new Date().toISOString().split('T')[0];
+  const buildDate = site.buildDate ?? new Date().toISOString().split('T')[0];
 
   const items = [
     ...projetos.map(p => ({
