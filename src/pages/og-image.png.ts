@@ -1,10 +1,13 @@
 // src/pages/og-image.png.ts
 import type { APIRoute } from 'astro';
 import { site } from '../data/site';
+import zlib from 'node:zlib';
 
 export const GET: APIRoute = async ({ params }) => {
-  const title = params.title ? decodeURIComponent(params.title) : site.title;
-  const subtitle = params.subtitle ? decodeURIComponent(params.subtitle) : site.description;
+  const rawTitle = params.title ? decodeURIComponent(params.title) : null;
+  const rawSubtitle = params.subtitle ? decodeURIComponent(params.subtitle) : null;
+  const title = rawTitle ?? site.title;
+  const subtitle = rawSubtitle ?? site.description;
 
   const width = 1200;
   const height = 630;
@@ -38,7 +41,6 @@ function createOGImage(opts: { title: string; subtitle: string; width: number; h
     }
   }
 
-  // Top gradient strip
   const stripHeight = Math.min(220, height);
   for (let y = 0; y < stripHeight; y++) {
     for (let x = 0; x < width; x++) {
@@ -47,8 +49,8 @@ function createOGImage(opts: { title: string; subtitle: string; width: number; h
     }
   }
 
-  const zlib = deflateSync(raw);
-  const idat = createChunk('IDAT', new Uint8Array(zlib));
+  const compressed = zlib.deflateSync(raw);
+  const idat = createChunk('IDAT', new Uint8Array(compressed));
   const iend = createChunk('IEND', new Uint8Array([]));
   return new Uint8Array([...sig, ...ihdr, ...idat, ...iend]);
 }
@@ -56,12 +58,10 @@ function createOGImage(opts: { title: string; subtitle: string; width: number; h
 function createChunk(type: string, data: Uint8Array): Uint8Array {
   const typeBytes = new TextEncoder().encode(type);
   const lenBuf = new Uint8Array(new Uint32Array([data.length]).buffer).reverse();
-  const len = new Uint8Array(lenBuf);
   const crcData = new Uint8Array([...typeBytes, ...data]);
   const crcVal = crc32(crcData);
   const crcBuf = new Uint8Array(new Uint32Array([crcVal]).buffer).reverse();
-  const crc = new Uint8Array(crcBuf);
-  return new Uint8Array([...len, ...typeBytes, ...data, ...crc]);
+  return new Uint8Array([...lenBuf, ...typeBytes, ...data, ...crcBuf]);
 }
 
 function crc32(buf: Uint8Array): number {
@@ -71,20 +71,4 @@ function crc32(buf: Uint8Array): number {
     for (let j = 0; j < 8; j++) crc = (crc >>> 1) ^ (crc & 1 ? 0xEDB88320 : 0);
   }
   return (crc ^ 0xFFFFFFFF) >>> 0;
-}
-
-function deflateSync(data: Uint8Array): Uint8Array {
-  const len = data.length;
-  const lenLE = new Uint8Array(new Uint16Array([len]).buffer);
-  const nlenVal = (~len & 0xFFFF);
-  const nlenLE = new Uint8Array(new Uint16Array([nlenVal]).buffer);
-  const header = new Uint8Array([0x78, 0x01]);
-  return new Uint8Array([...header, 0x01, ...lenLE, ...nlenLE, ...data, ...adler32(data)]);
-}
-
-function adler32(data: Uint8Array): Uint8Array {
-  let a = 1, b = 0;
-  for (const v of data) { a = (a + v) % 65521; b = (b + a) % 65521; }
-  const val = (b << 16) | a;
-  return new Uint8Array(new Uint32Array([val]).buffer).reverse();
 }

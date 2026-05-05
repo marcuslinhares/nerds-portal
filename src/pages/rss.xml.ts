@@ -3,11 +3,21 @@ import { getCollection } from 'astro:content';
 import { site } from '../data/site';
 
 export const GET: APIRoute = async () => {
-  const [projetos, cursos, atividades] = await Promise.all([
-    getCollection('projetos'),
-    getCollection('cursos'),
-    getCollection('atividades'),
-  ]);
+  let projetos: any[] = [], cursos: any[] = [], atividades: any[] = [];
+  try {
+    [projetos, cursos, atividades] = await Promise.all([
+      getCollection('projetos'),
+      getCollection('cursos'),
+      getCollection('atividades'),
+    ]);
+  } catch (e) {
+    return new Response('<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0"><channel><title>NERDS</title></channel></rss>\n', {
+      status: 500,
+      headers: { 'Content-Type': 'application/rss+xml' },
+    });
+  }
+
+  const buildDate = '2026-05-04';
 
   const items = [
     ...projetos.map(p => ({
@@ -18,7 +28,7 @@ export const GET: APIRoute = async () => {
     })),
     ...cursos.map(c => ({
       title: c.data.titulo,
-      pubDate: new Date().toISOString(),
+      pubDate: buildDate,
       link: `/cursos/${c.id}`,
       description: `Carga horária: ${c.data.cargaHoraria} | Status: ${c.data.status}`,
     })),
