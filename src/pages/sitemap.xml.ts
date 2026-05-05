@@ -20,7 +20,7 @@ export const GET: APIRoute = async () => {
   }
 
   const staticPages = ['/', '/sobre', '/projetos', '/cursos', '/atividades', '/noticias-eventos', '/parceiros', '/equipe', '/contato'];
-  const buildDate = '2026-05-04';
+  const buildDate = (site as any).buildDate ?? new Date().toISOString().split('T')[0];
 
   const urls = [
     ...staticPages.map(path => ({
@@ -63,3 +63,4 @@ ${urls.map(u => `  <url>
     headers: { 'Content-Type': 'application/xml' },
   });
 };
+

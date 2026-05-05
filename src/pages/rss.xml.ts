@@ -17,7 +17,7 @@ export const GET: APIRoute = async () => {
     });
   }
 
-  const buildDate = '2026-05-04';
+  const buildDate = (site as any).buildDate ?? new Date().toISOString().split('T')[0];
 
   const items = [
     ...projetos.map(p => ({
@@ -61,3 +61,4 @@ export const GET: APIRoute = async () => {
     { headers: { 'Content-Type': 'application/rss+xml' } }
   );
 };
+
