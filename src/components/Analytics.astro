@@ -1,0 +1,16 @@
+---
+// src/components/Analytics.astro
+---
+
+<script>
+  const storageKey = 'nerds_page_views';
+  const currentPath = window.location.pathname;
+
+  try {
+    const views = JSON.parse(localStorage.getItem(storageKey) || '{}');
+    views[currentPath] = (views[currentPath] || 0) + 1;
+    localStorage.setItem(storageKey, JSON.stringify(views));
+  } catch (e) {
+    // Silently fail if localStorage is not available
+  }
+</script>
